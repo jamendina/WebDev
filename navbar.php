@@ -40,7 +40,7 @@
       </li>
       <!-- Sign-out button -->
       <li class="nav-item dropdown">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="pages/login/login.php">
           <i class="fas fa-sign-out-alt"></i>
           <span class="badge badge-success navbar-badge"></span>
         </a>
