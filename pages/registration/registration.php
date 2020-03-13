@@ -7,19 +7,29 @@
   <title>Philippine Red Cross</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="../../plugins/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="../../plugins/bootstrap/js/bootstrap.bundle.min.js">
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../../plugins/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="../../plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
-   <link rel="stylesheet" href="../../plugins/iCheck/all.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
-  <link rel="shortcut icon" type="text/css" href="../login/logo.png">
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+  <link rel="shortcut icon" type="text/css" href="../../dist/img/prc-logo.png">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -82,277 +92,208 @@ function getAge(){
 
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-blue layout-top-nav" style="background-image:url('a.jpg'); ">
-<div class="wrapper">
+<body class="hold-transition skin-blue layout-top-nav">
+    <div class="wrapper">
 
-  <header class="main-header">
-    <nav class="navbar navbar-static-top">
-    <div class="col-sm-8 col-sm-offset-2">
-        <label></label>
-            <img src="../../logo.png" width="65px" align="left"><center><p style="color:black; font-weight:bold; font-size:30px;">PHILIPPINE RED CROSS REGISTRATION FORM</p></center>
-    </div>
-     
-      <!-- /.container-fluid -->
-    </nav>
-  </header>
-  <!-- Full Width Column -->
-  <div class="content-wrapper">
-    <div class="container">
-      <!-- Content Header (Page header) -->
-    
-
-      <!-- Main content --><br><br>
-
-      <section class="content">
-      <div class="row">
-      <div class="col-sm-10 col-sm-offset-1 form-box">
-               <div class="box box-danger">
-            <div class="box-header with-border" style="background-color: #dc4735; color:white;">
-              <h3 class="box-title">Setup your account: (fields with * are required)</h3>
+      <header class="main-header">
+        <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+        <div class="container">
+          <a href="#" class="navbar-brand">
+            <div class="col-md-6">
+              <img src="../../dist/img/prc-logo.png" alt="Philippine Red Cross Logo" class="brand-image img-circle elevation-3"
+                   style="opacity: .8">
+              <span class="brand-text font-weight-bold">Philippine Red Cross | Registration Page</span>
             </div>
-            <!-- /.box-header -->
-            
-            <!-- form start -->
-            <form role="form"  action="" method="post" id="formcont">
-             
-        <div class="box-body">
-          <div class="col-xs-12">
-            <div>
-              <h4 class="box-title" style="text-align:center">Basic Information</h4>
-            </div>  
+          </a>
         </div>
-           <div class="col-xs-6">
-                      <label>Account Type <b style="color: red;">*</b></label>
-                      <div class="input-group">
-                      <div class="input-group-addon">
-                            <i class="fa fa-user"></i>
-                            </div>
-                      <select class="form-control" id="a_type" name="a_type" required>
-                        <option disabled selected>Type of Account</option>
-                        <option value="Volunteer">Volunteer</option>
-                        <option value="Non-Volunteer">Non-Volunteer</option>
-                      </select>
-                      </div>
-                    </div>
-                    <div class="col-xs-12">
-
-                      
-                    </div>
-        <div class="col-xs-6">
-          
-          <label>First Name: <b style="color: red;">*</b></label>
-          <div class="input-group">
-                      <div class="input-group-addon">
-                            <i class="fa fa-user"></i>
-                            </div>
-            <input type="text" class="form-control" name="fn" id="fn" placeholder="First Name" onKeyPress="return ValidateAlpha(event);" required>
-                </div>
-                 </div>
-        <div class="col-xs-6">
-          
-          <label>Last Name: <b style="color: red;">*</b></label>
-          <div class="input-group">
-                      <div class="input-group-addon">
-                            <i class="fa fa-user"></i>
-                            </div>
-            <input type="text" class="form-control" name="ln" id="ln" placeholder="Last Name" onKeyPress="return ValidateAlpha(event);" required>
-
-                </div></div>
-
-                     <div class="col-xs-6">
-                        <label>Blood Type: <b style="color: red;">*</b></label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                            <i class="fa fa-tint"></i>
-                            </div>
-                        <select class="form-control" id="bloodtype" name="bloodtype" autocomplete="off" >
-                        <option disabled selected>Your Blood Type</option>
-                        <option value="Unidentified">Unidentified</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                      </select>
-                    </div>
-                 </div>
-                  <div class="col-xs-6">
-                        <label>Are you a blood donor: <b style="color: red;">*</b> </label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                            <i class="fa fa-user"></i>
-    
-                            </div>
-                            <select class="form-control" id="donor" name="donor" required autocomplete="off" onchange="showDiv(this)">
-                        <option  value="" disabled selected>Yes/No</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-
-                      </select>
-                        
-                        </div>
-                 </div> 
-
-                <div class="col-xs-6" id="hidden_div" style="display:none;">
-                     
-                                  <label>Date Last Donated: <b style="color: red;">*</b> </label>
-                                  <div class="input-group">
-                                      <div class="input-group-addon">
-                                      <i class="fa fa-calendar"></i>
-                                      </div>
-                                   <input type="date" name="date_donated" id="date_donated"  class="form-control form-control-line">
-                                  </div>
-                         
-                  </div>
-
-                 <div class="col-xs-12">
-
-                      <hr></hr>
-                    </div>
-
-        <div class="col-xs-12">
-            <div>
-              <h4 class="box-title" style="text-align:center">Membership Information</h4>
-            </div>  
-        </div>
-                 <div class="col-xs-6">
-                     <label>Type of Membership: <b style="color: red;">*</b></label>
-
-                        <div class="input-group">
-                        <div class="input-group-addon">
-                         <i class="fa fa-bookmark"></i>
-                        </div>
-                         <select class="form-control" name="maabtype_id" id="maabtype_id" autocomplete="off" >
-                       <?php
-                       echo' <option disabled selected>Select MAAB Type</option>';
-                                          $maab = mysqli_query($con, "SELECT * from tblmaabtype ");
-                                            while($row = mysqli_fetch_array($maab))
-                         {
-                                                echo '
-                                                    
-                                                    <option value="'.$row['maabtype_id'].'"> '.$row['type'].'</option>';
-                                                    
-                                                        echo'
-                                                    
-                                                
-
-                                                ';
-                                            }
-                        ?>
-                        
-                      </select>
-                        
-                     </div>
-                    </div>
-                    <div class="col-xs-6">
-                     <label>Membership ID Effectivity: <b style="color: red;">*</b></label>
-
-                        <input type="date" class="form-control" name="effectivity" id="effectivity" required>
-                     
-                    </div>
-        <div class="col-xs-12">
-
-                      <hr></hr>
-                    </div>
-
-        <div class="col-xs-12">
-            <div>
-              <h4 class="box-title" style="text-align:center">Contact Information</h4>
-            </div>  
-        </div>
-         <div class="col-xs-6">
-            <label>Email: <b style="color: red;">*</b></label>
-                         <div class="input-group">
-                            <div class="input-group-addon">
-                              <i class="fa fa-envelope"></i>
-        
-                            </div>
-                         <input type="email"  id="email" placeholder="example@email.com" class="form-control form-control-line" name="email" required />
-                         </div><div id="emailstat"></div>
-                 </div>
-
-
-               <div class="col-xs-6">
-                <label>Phone Number: <b style="color: red;">*</b></label><br>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                            <i class="fa fa-mobile-phone"></i>
-                            </div>
-                        <input type="text" placeholder="Phone Number" class="form-control" name="cp_no" id="cp_no" onkeypress="javascript:return isNumber(event)" pattern="^[0-9]{10,12}$"  maxlength="11" required>
-                        </div><div id="cpstat"></div>
-                 </div>
-               <div class="col-xs-6">
-                <label>Address: <b style="color: red;">*</b></label><br>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                            <i class="fa fa-home"></i>
-    
-                            </div>
-                        <input type="text" name="address" placeholder="Address" id="address" class="form-control form-control-line" required>
-                        </div>
-                 </div>
-                 
-                    <div class="col-xs-12">
-
-                      <hr><h4 style="text-align:center">Account Security Information</h4></hr>
-                    </div>         
-
-        <div class="col-xs-6"><label>Username: <b style="color: red;">*</b></label><br>
-             <div class="input-group">
-
-                                                <div class="input-group-addon">
-                                                  <i class="fa fa-user-secret"></i>
-                            
-                                                </div>
-            <input type="text" class="form-control" id="user" name="user" placeholder="Username" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?!.*\s).*$" required title="8 characters up, should contain letters, and no blank spaces">
-            </div><div id="status"></div>
-
-                </div>
-         <div class="col-xs-6"><label>Password: <b style="color: red;">*</b></label><br>
-             <div class="input-group">
-                                                <div class="input-group-addon">
-                                                  <i class="fa fa-lock"></i>
-                            
-                                                </div>
-            
-            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"  pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?!.*\s)(?=.*[A-Z]).*$" required title="8 characters up, should contain letters, capital letters, digits and no blank spaces" required onkeyup='check()'></div>
-
-                </div>
-
-         <div class="col-xs-6"><label>Confirm Password: <b style="color: red;">*</b></label><br>
-             <div class="input-group">
-                                                <div class="input-group-addon">
-                                                  <i class="glyphicon glyphicon-log-in"></i>
-                            
-                                                </div>
-            <input type="password" class="form-control" id="cpass" name="cpass" placeholder="Confirm Password"  required onkeyup='check()'></div><span id="message"></span>
-
-                </div>
-          
-            
-                    
-                    
-                    <div class="col-xs-12">
-                      <hr><h5> <input type="checkbox" name="confirm" autocomplete="off" required> I hereby affirm that all the above information is complete and accurate. I know that any false or misleading information given by me can make me ineligible for admission or subject to dismissal. I also hereby provide my personal data only for the use of Philippine Red Cross for the belief of not divulging any information without my consent under R.A 10173 or the Data Privacy Act of 2012.</h5></hr>
-
-            <h5>Please click submit, if you have completely filled out the application form and validated all information.</h5>
-                    </div>
-        <div class="col-sm-8 col-sm-offset-2">
-        <label></label>
-            <button type="submit" name="submit" class="btn btn-danger btn-block " style="height:50px;">Register</button>
-        </div>
+      </nav>
+      <!-- /.navbar -->
+      </header>
+      <!-- Full Width Column -->
+      <div class="content-wrapper"><br/>
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3">
               </div>
-        <div class="col-sm-8 col-sm-offset-5">
-        <label></label><br>
-                              <strong><a href="../login/login" class="mt-5 mb-3">Go back to Login Page</a></strong><br/>
-                              <strong><a href="../indox/landing-page" class="mt-5 mb-3">Go back to Homepage</a></strong>
+              <div class="col-md-6">
+                <div class="card card-primary card-outline">
+                  <div class="card-header">
+                    <ul class="nav nav-pills">
+                      <li class="nav-item">User Information (fields with * are required)</li>
+                    </ul>
+                  </div><!-- /.card-header -->
+
+                  <div class="card-body">
+                    <h5> <center>Basic Information</center></h5>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="settings">
+                        <form class="form-horizontal" action="" method="post" id="formcont">
+                          <div class="form-group row">
+                            <label for="inputName" class="col-sm-3 col-form-label">Account Type <b style="color: red;">*</b></label>
+                            <div class="col-sm-9">
+                              <select class="form-control" id="a_type" name="a_type" required>
+                              <option disabled selected>Select Type</option>
+                              <option value="Volunteer">Volunteer</option>
+                              <option value="Non-Volunteer">Non-Volunteer</option>
+                            </select>
                             </div>
-              <!-- /.box-body -->
-        
-            </form>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputName" class="col-sm-2 col-form-label">First Name <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" name="fn" id="fn" placeholder="First Name" onKeyPress="return ValidateAlpha(event);" required>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Last Name <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                               <input type="text" class="form-control" name="ln" id="ln" placeholder="Last Name" onKeyPress="return ValidateAlpha(event);" required>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputName2" class="col-sm-2 col-form-label">Blood Type <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="bloodtype" name="bloodtype" autocomplete="off" >
+                                  <option disabled selected>Your Blood Type</option>
+                                  <option value="Unidentified">Unidentified</option>
+                                  <option value="O+">O+</option>
+                                  <option value="O-">O-</option>
+                                  <option value="A+">A+</option>
+                                  <option value="A-">A-</option>
+                                  <option value="B+">B+</option>
+                                  <option value="B-">B-</option>
+                                  <option value="AB+">AB+</option>
+                                  <option value="AB-">AB-</option>
+                                </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputExperience" class="col-sm-2 col-form-label">Blood Donor? <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                             <select class="form-control" id="donor" name="donor" required autocomplete="off" onchange="showDiv(this)">
+                                <option  value="" disabled selected>Yes/No</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row" id="hidden_div" style="display:none;">
+                           <label for="inputExperience" class="col-sm-2 col-form-label">Date Last Donated <b style="color: red;">*</b></label>
+                            <div class="col-sm-8">
+                              <input type="date" name="date_donated" id="date_donated"  class="form-control">
+                            </div>
+                          </div>
+                        <hr>
+                    <h5><center>Membership Information</center></h5>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="settings">
+                        <form class="form-horizontal">
+                          <div class="form-group row">
+                            <label for="inputName" class="col-sm-3 col-form-label">MAAB Type <b style="color: red;">*</b></label>
+                            <div class="col-sm-9">
+                              <select class="form-control" name="maabtype_id" id="maabtype_id" autocomplete="off" >
+                                 <?php
+                                 echo' <option disabled selected>Select MAAB Type</option>';
+                                                    $maab = mysqli_query($con, "SELECT * from tblmaabtype ");
+                                                      while($row = mysqli_fetch_array($maab))
+                                   {
+                                                          echo '
+                                                              
+                                                              <option value="'.$row['maabtype_id'].'"> '.$row['type'].'</option>';
+                                                              
+                                                                  echo'
+                                                              
+                                                          
+
+                                                          ';
+                                                      }
+                                  ?>
+                                
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputName" class="col-sm-2 col-form-label">Membership Effectivity <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                              <input type="date" class="form-control" name="effectivity" id="effectivity" required>
+                            </div>
+                          </div>
+                          <hr>
+
+                          <h5><center>Contact Information</center></h5>
+                          <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                               <input type="email"  id="email" placeholder="example@email.com" class="form-control form-control-line" name="email" required /><div id="emailstat"></div>
+                            </div>
+                          </div>
+                           <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Phone Number <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                               <input type="text" placeholder="Phone Number" class="form-control" name="cp_no" id="cp_no" onkeypress="javascript:return isNumber(event)" pattern="^[0-9]{10,12}$"  maxlength="11" required>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Address <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                              <input type="text" name="address" placeholder="Address" id="address" class="form-control form-control-line" required>
+                            </div>
+                          </div>
+                          <hr>
+                          <h5><center>Account Security Information</center></h5>
+                           <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Username <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="user" name="user" placeholder="Username" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?!.*\s).*$" required title="8 characters up, should contain letters, and no blank spaces">
+                              <div id="status"></div>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Password <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                                  <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"  pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?!.*\s)(?=.*[A-Z]).*$" required title="8 characters up, should contain letters, capital letters, digits and no blank spaces" required onkeyup='check()'>
+                              </div>
+                          </div>
+                           <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Confirm Password <b style="color: red;">*</b></label>
+                            <div class="col-sm-10">
+                                  <input type="password" class="form-control" id="cpass" name="cpass" placeholder="Confirm Password"  required onkeyup='check()'><span id="message"></span>
+                              </div>
+                          </div>
+                          <hr>
+                          <div class="form-group row">
+                            <div class="col-sm-15">
+                              <h6> <input type="checkbox" name="confirm" autocomplete="off" required> I hereby affirm that all the above information is complete and accurate. I know that any false or misleading information given by me can make me ineligible for admission or subject to dismissal. I also hereby provide my personal data only for the use of Philippine Red Cross for the belief of not divulging any information without my consent under R.A 10173 or the Data Privacy Act of 2012.</h6>
+                              </hr>
+
+                              <h6>Please click submit, if you have completely filled out the application form and validated all information.</h6>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="offset-sm-5 col-md-10">
+                              <button type="submit" class="btn btn-danger">Register</button>
+                            </div>
+                          </div>
+                        </div>
+                        </form>
+                      </div>
+                      <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div><!-- /.card-body -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+              </div>
+              <!-- /.col -->
+              
+            </div>
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </section>
+       
+      
     <?php           
 
         if(isset($_POST['submit'])){
@@ -447,11 +388,8 @@ function getAge(){
 
 ?>
   
-          </div>
-      </div>
-      </div>
-
-      </section>
+          <center><strong><a href="../login/login.php" class="mt-5 mb-3">Go back to Login Page</a></strong></center>
+          <center><strong><a href="../indox/landing-page" class="mt-5 mb-3">Go back to Homepage</a></strong></center>
       <!-- /.content -->
     </div>
     <!-- /.container -->
@@ -468,35 +406,56 @@ function getAge(){
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="../../plugins/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="../../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="../../plugins/select2/dist/js/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="../../plugins/input-mask/jquery.inputmask.js"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="../../plugins/moment/min/moment.min.js"></script>
-<script src="../../plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="../../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- bootstrap color picker -->
-<script src="../../plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- SlimScroll -->
-<script src="../../plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="../../plugins/iCheck/icheck.min.js"></script>
-<!-- FastClick -->
-<script src="../../plugins/fastclick/lib/fastclick.js"></script>
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="../../plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="../../plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="../../plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="../../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../../plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../../plugins/moment/moment.min.js"></script>
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="../../dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../../dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+
+<script src="../../plugins/fullcalendar/main.min.js"></script>
+<script src="../../plugins/fullcalendar-daygrid/main.min.js"></script>
+<script src="../../plugins/fullcalendar-timegrid/main.min.js"></script>
+<script src="../../plugins/fullcalendar-interaction/main.min.js"></script>
+<script src="../../plugins/fullcalendar-bootstrap/main.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
 <script>
                 var today = new Date().toISOString().split("T")[0];
                   document.getElementsByName("effectivity")[0].setAttribute("max", today);
@@ -542,45 +501,7 @@ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/additional-methods.min.js"></script>
-<script>
-$(document).ready(function() {
 
-    $("#formcont").validate({
-        rules: {
-            name: {
-                required: true
-            },
-            edit_min: {
-          required: function(element) {
-            return $('[name="edit_max"]').is(':filled');
-        },
-                digits: true,
-                min: 1
-            },
-            edit_max: {
-          required: function(element) {
-            return $('[name="edit_min"]').is(':filled');
-        },
-                digits: true,
-                min: function(element) {
-            return parseInt($('[name="edit_min"]').val());
-        }
-            },
-            duration: {
-                digits: true,
-                min: 1
-            },
-            price_per_person: {
-                digits: true,
-                min: 1
-            }
-        }
-    });
-
-});
-
-
-</script>
 <script>
   $(document).ready(function(){
   // check change event of the text field 
