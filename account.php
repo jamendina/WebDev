@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  include ('pages/connection.php');
+  if(!isset($_SESSION['username'])){
+    header ('Location: pages/login/login.php');
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include"head-css.php"; ?>
@@ -56,38 +63,95 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Rosediel P. Rivero</td>
-                            <td>San Roque, Daraga Albay</td>
-                            <td>09123456789</td>
-                            <td><span class="badge bg-danger">Chapter Administrator</span></td>
-                             <td><a href=""><span class="badge bg-primary"><i class="fas fa-eye"></i></span></a></td>
-                          </tr>
+                          <?php
+                                             $squery = mysqli_query($con, "SELECT *, ta.a_id as a_id, CONCAT(ln, ', ', fn, ' ',mn) as sname from tblaccount ta 
+                                              left join tbluserinfo ui ON ta.ui_id = ui.ui_id 
+                                              left join tblmaab ma ON ta.ui_id = ma.ui_id
+                                              left join tblblooddonation bd ON ta.ui_id = bd.ui_id
+                                              left join tbluposition tu ON ta.ui_id = tu.ui_id
+                                              left join tbluservices ts ON ta.ui_id = ts.ui_id
+                                              where u_class = 'Staff' and status = 'Active' and ui.ui_id!='".$_SESSION['uiid']."' ");
+                                            while($row = mysqli_fetch_array($squery))
+                                            {
+                                                echo '
+                                                <tr> 
+                                                    
+                                                    <td>'.$row['sname'].'</td>
+                                                    <td>'.$row['address'].'</td>
+                                                    <td>'.$row['cp_no'].'</td>
+                                                    <td>'.$row['position'].'</td>';
+                                                    if($_SESSION['role'] == "System Administrator"){
+                                                                    echo '
+                                                    <td><button class="btn btn-success btn-xs btn" data-target="#editStaff'.$row['ui_id'].'" data-toggle="modal"><i class="fas fa-edit" aria-hidden="true"></i><b> Info</b></button>
+                                                    </td>';
+                                                    } 
+                                                     echo'
+                                                    
+                                                </tr>
+                                                ';
+                                                 include "AccountEditModal.php";
+                                                
+                                            }
+                                            ?>
                          
                         </tbody>
                       </table>
+
                     </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="instructor">
                      <table id="example3" class="table table-bordered">
                       <thead>                  
                         <tr>
+                          <th>MAAB ID</th>
                           <th>Name</th>
                           <th>Address</th>
-                          <th>Contact No.</th>
                           <th>Services</th>
+                          <th>Contact No.</th>
+                          <th>Status</th>
                           <th style="width: 10px; position: center;">Option</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John Paul D. Mangampo</td>
-                          <td>Legazpi City, Albay</td>
-                          <td>09123456789</td>
-                          <td><span class="badge bg-danger">Safety Services</span></td>
-                           <td><a href=""><span class="badge bg-primary"><i class="fas fa-eye"></i></span></a></td>
-                        </tr>
-                       
+                        <?php
+                                            $squery = mysqli_query($con, "SELECT *, ta.a_id as a_id, CONCAT(ln, ', ', fn, ' ',mn) as fname from tblaccount ta 
+                                              left join  tbluserinfo ui ON ta.ui_id = ui.ui_id 
+                                              left join tblmaab ma ON ta.ui_id = ma.ui_id
+                                              left join tblblooddonation bd ON ta.ui_id = bd.ui_id
+                                              left join tbluspecialization tu ON ta.ui_id = tu.ui_id
+                                              left join tblstat stat ON stat.stat_id = ui.stat_id
+                                              where u_class = 'Instructor'");
+                                            while($row = mysqli_fetch_array($squery))
+                                            {
+                                                echo '
+                                                <tr>
+                                                    <td>'.$row['maab_id'].'</td>
+                                                    <td>'.$row['fname'].'</td>
+                                                    <td>'.$row['specialization'].'</td>
+                                                    <td>'.$row['address'].'</td>
+                                                    <td>'.$row['cp_no'].'</td>
+                                                    <td>'.($row['status'] == "Active" ? "<label style='color:green'>".$row['status']."</label>" : (($row['status'] == "Inactive") ? "<label style='color:red'>".$row['status']."</label>" : "<label style='color:black'></label>")) .'</td>';
+                                                    if(($_SESSION['role'] == "System Administrator")||($_SESSION['role'] == "Safety Services")){
+                                                                    echo '
+                                                    <td> <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ViewInstructor'.$row['a_id'].'"><i class="fa fa-eye" aria-hidden="true"></i> <b>Info</b></button>
+                                                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#InstructorStatus'.$row['ui_id'].'"><i class="fa fa-edit" aria-hidden="true"></i> <b>Status</b></button>  
+                                                    
+                                                    </td>
+                                                   ';
+                                                        }
+                                                        echo'
+                                                    
+                                                    
+                                                </tr>
+                                                ';
+                                                include "InstructorStatus.php";
+                                                include "ViewInstructor.php";
+                                                /**include "insstatModal.php";
+                                                include "viewaccount.php";**/
+                                                
+                                                
+                                            }
+                                            ?>
                       </tbody>
                     </table>
                   </div>
@@ -97,22 +161,97 @@
                      <table id="example4" class="table table-bordered">
                       <thead>                  
                         <tr>
-                          <th>Name</th>
-                          <th>Address</th>
-                          <th>Contact No.</th>
-                          <th>Services</th>
-                          <th style="width: 10px; position: center;">Option</th>
+                            <th>Full Name</th>
+                            <th>Address</th>
+                            <th>Contact No.</th>
+                            <?php 
+                             if($_SESSION['role'] == "Welfare Services"){
+                                                echo '
+                            <th>MAAB ID</th>
+                            <th>MAAB Effectivity</th>
+                            ';
+
+                             }
+                             else if($_SESSION['role'] == "Blood Services"){
+                                                echo '
+                            <th>School/Company</th>
+                            <th>Blood Type</th>
+                            <th>Date Last Donated</th>
+
+                            ';
+                             }else if($_SESSION['role'] == "System Administrator"){
+                                                echo '
+                            <th>School/Company</th>
+                            <th>MAAB ID</th>
+                            <th>MAAB Effectivity</th>
+                            <th>Blood Type</th>                    
+                            <th>Option</th>
+                            ';
+
+                            } else if($_SESSION['role'] == "Safety Services"){
+                                                echo '
+                            <th>School/Company</th>                    
+                            <th>Option</th>
+                            ';
+
+                            }
+                            
+                            ?>
+
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John Anthony B. Mendina</td>
-                          <td>Legazpi City, Albay</td>
-                          <td>09123456789</td>
-                          <td><span class="badge bg-danger">Red Cross Youth</span></td>
-                           <td><a href=""><span class="badge bg-primary"><i class="fas fa-eye"></i></span></a></td>
-                        </tr>
-                       
+                        <?php
+                          $squery = mysqli_query($con, "SELECT *, ta.a_id as a_id, CONCAT(ln, ', ', fn, ' ',mn) as fname from tblaccount ta 
+                            left join tbluserinfo ui ON ta.ui_id = ui.ui_id 
+                            left join tblmaab ma ON ta.ui_id = ma.ui_id
+                            left join tblblooddonation bd ON ta.ui_id = bd.ui_id
+                            where a_type = 'Volunteer' and status = 'Active' ");
+                          while($row = mysqli_fetch_array($squery))
+                          {
+                            $start = $row['date_donated'];
+                            $old_date_timestamp = strtotime($start);
+                            $word_date = date('F j, Y', $old_date_timestamp);
+                              echo '
+                              <tr>
+                                  <td>'.$row['fname'].'</td>
+                                  <td>'.$row['address'].'</td>
+                                  <td>'.$row['cp_no'].'</td>';
+                                  if($_SESSION['role'] == "Welfare Services"){echo '
+                                  <td>'.$row['maab_id'].'</td>
+                                  <td>'.$row['effectivity'].'</td>';
+
+                                  } else if($_SESSION['role'] == "Blood Services"){echo '
+                                  <td>'.$row['company'].'</td>
+                                  <td>'.$row['bloodtype'].'</td>
+                                  <td>'.$word_date.'</td>';
+
+                                  }else if($_SESSION['role'] == "System Administrator"){
+                                                  echo '
+                                  <td>'.$row['company'].'</td>                
+                                  <td>'.$row['maab_id'].'</td>
+                                  <td>'.$row['effectivity'].'</td>
+                                  <td>'.$row['bloodtype'].'</td>            
+                                  <td> <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ViewTrainee'.$row['a_id'].'"><i class="fa fa-eye"></i> <b>Info</b>
+                                  </button>
+                                  </td>';
+                                      } 
+                                  else if($_SESSION['role'] == "Safety Services"){
+                                                  echo '
+                                  <td>'.$row['company'].'</td>
+                                  <td> <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ViewTrainee'.$row['a_id'].'"><i class="fa fa-eye"></i></a>
+                                  </button>
+                                  
+                                  </td>';
+                                      }
+                                      echo'
+                                  
+                                  
+                              </tr>
+                              ';
+                              include "ViewTrainee.php";
+                          }
+                          ?>
                       </tbody>
                     </table>
                   </div>
@@ -128,13 +267,34 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John Anthony B. Mendina</td>
-                          <td>Legazpi City, Albay</td>
-                          <td>09123456789</td>
-                          <td><span class="badge bg-danger">March 12, 2020</span></td>
-                           <td><a href=""><span class="badge bg-primary"><i class="fas fa-eye"></i></span></a></td>
-                        </tr>
+                        <?php
+                          $squery = mysqli_query($con, "SELECT *, ta.a_id as a_id, CONCAT(ln, ', ', fn, ' ',mn) as fname from tblaccount ta 
+                            left join tbluserinfo ui ON ta.ui_id = ui.ui_id
+                            left join tblmaab ma ON ta.ui_id = ma.ui_id
+
+                            left join tblblooddonation bd ON ta.ui_id = bd.ui_id
+                            where status = 'Pending' ORDER BY date ASC");
+                          while($row = mysqli_fetch_array($squery))
+                          {
+                              echo '
+                              <tr>
+                                  
+                                  <td>'.$row['fname'].'</td>
+                                  <td>'.$row['address'].'</td>
+                                  <td>'.$row['cp_no'].'</td>
+                                  <td>'.$row['date'].'</td>
+                                  <td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ViewPending'.$row['a_id'].'"><i class="fa fa-eye"></i> <b>Info</b></button> 
+                                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#accept'.$row['a_id'].'"><i class="fa fa-edit"></i> <b>Status</b></button>
+                                      
+                                  </td>
+
+                              </tr>        
+                              ';
+                              include "PendingModal.php";
+                              include "ViewPending.php";
+                          }
+                          ?>
+                        
                        
                       </tbody>
                     </table>
@@ -155,6 +315,7 @@
     </section>
     <!-- /.content -->
   </div>
+    <?php include "editfunction.php"; ?>
   <!-- /.content-wrapper -->
    <?php include('footer.php'); ?>
 </div>

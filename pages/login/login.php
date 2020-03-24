@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  ob_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +34,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="../../dashboard.php" method="post">
+      <form role="form" method="post">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Username" name="user">
           <div class="input-group-append">
@@ -50,7 +54,7 @@
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block" name="btn_login">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -66,6 +70,213 @@
     <!-- /.login-card-body -->
   </div>
 </div>
+
+<?php
+        include ('../connection.php');
+
+
+        if(isset($_POST['btn_login']))
+        { 
+      
+            $user = $_POST['user'];
+            $pass = $_POST['pass'];
+            $_SESSION['username'] = $user;
+
+      
+            $admin = mysqli_query($con, "SELECT *, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+               left join tbluposition tu on ta.ui_id = tu.ui_id
+              where user = '$user' and pass = '$pass' and tu.position = 'System Administrator'");
+            $numrow = mysqli_num_rows($admin);
+
+
+
+            $volunteer_info = mysqli_query($con, "SELECT * from tblaccount where user = '$user' and pass = '$pass' and a_type = 'Volunteer' and status = 'Active' ");
+            $numrow1 = mysqli_num_rows($volunteer_info);
+
+
+
+            $non_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+              where user = '$user' and pass = '$pass' and a_type = 'Non-Volunteer' and status = 'Active' ");
+                $numrow2 = mysqli_num_rows($non_info);
+
+
+
+            $safetyservices_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+              left join tbluposition tu on ta.ui_id = tu.ui_id 
+              left join tbluservices tus on ta.ui_id = tus.ui_id
+              where user = '$user' and pass = '$pass' and tu.position ='Chapter Service Representative' and tus.services_title = 'Safety Services' ");
+                $numrow3 = mysqli_num_rows($safetyservices_info);
+
+
+
+            $chapter_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id
+              left join tbluposition tu on ta.ui_id = tu.ui_id
+              where user = '$user' and pass = '$pass' and tu.position = 'Chapter Administrator' ");
+                $numrow4 = mysqli_num_rows($chapter_info); 
+
+
+
+            $bloodservice_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+              left join tbluposition tu on ta.ui_id = tu.ui_id 
+              left join tbluservices tus on ta.ui_id = tus.ui_id
+              where user = '$user' and pass = '$pass' and tu.position ='Chapter Service Representative' and tus.services_title = 'Blood Services' ");
+                $numrow5 = mysqli_num_rows($bloodservice_info);
+
+
+
+            $dms_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+              left join tbluposition tu on ta.ui_id = tu.ui_id
+              left join tbluservices tus on ta.ui_id = tus.ui_id
+              where user = '$user' and pass = '$pass' and tu.position ='Chapter Service Representative' and tus.services_title = 'Disaster Management Services' ");
+                $numrow6 = mysqli_num_rows($dms_info);
+
+
+
+            $ws_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+              left join tbluposition tu on ta.ui_id = tu.ui_id
+              left join tbluservices tus on ta.ui_id = tus.ui_id
+              where user = '$user' and pass = '$pass' and tu.position ='Chapter Service Representative' and tus.services_title = 'Welfare Services' ");
+                $numrow7 = mysqli_num_rows($ws_info);   
+
+
+
+            $ins_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+              where user = '$user' and pass = '$pass' and a_type = 'Instructor' ");
+                $numrow8 = mysqli_num_rows($ins_info);
+
+            $ihl_info = mysqli_query($con, "SELECT*, ta.a_id as a_id from tblaccount ta 
+              left join tbluserinfo ui on ta.ui_id = ui.ui_id 
+              left join tbluposition tu on ta.ui_id = tu.ui_id
+              left join tbluservices tus on ta.ui_id = tus.ui_id
+              where user = '$user' and pass = '$pass' and tu.position ='Focal Person' and tus.services_title = 'International Humanitarian Law' ");
+                $numrow9 = mysqli_num_rows($ihl_info);
+
+                
+
+            if($numrow > 0)
+            {
+                  $_SESSION['username'] = $user;
+                while($row = mysqli_fetch_array($admin)){
+                  $_SESSION['role'] = "System Administrator";
+                  $_SESSION['userid'] = $row['a_id'];
+                  $_SESSION['uiid'] = $row['ui_id'];
+                }
+
+                 header ('location: ../../dashboard.php');
+               
+            }
+            elseif($numrow1 > 0)
+              {
+               $_SESSION['username'] = $user;
+                while($row = mysqli_fetch_array($volunteer_info)){
+                  $_SESSION['role'] = "Volunteer";
+                  $_SESSION['userid'] = $row['a_id'];
+                  $_SESSION['uiid'] = $row['ui_id'];
+
+                } 
+                header ('location: ../../dashboard.php');
+              }
+            elseif($numrow2 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($non_info)){
+                    $_SESSION['role'] = "Non-Volunteer";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                  } 
+                  header ('location: ../../dashboard.php');
+                }
+                //
+           elseif($numrow3 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($safetyservices_info)){
+                    $_SESSION['role'] = "Safety Services";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                  } 
+                  header ('location: ../../dashboard.php');
+                }
+           elseif($numrow4 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($chapter_info)){
+                    $_SESSION['role'] = "Chapter Administrator";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                  } 
+                  header ('location: ../../dashboard.php');
+                }
+           elseif($numrow5 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($bloodservice_info)){
+                    $_SESSION['role'] = "Blood Services";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                  } 
+                  header ('location: ../../dashboard.php');
+                }
+           elseif($numrow6 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($dms_info)){
+                    $_SESSION['role'] = "Disaster Management Services";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                  } 
+                  header ('location: ../../dashboard.php');
+                }
+           elseif($numrow7 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($ws_info)){
+                    $_SESSION['role'] = "Welfare Services";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                  } 
+                  header ('location: ../../dashboard.php');
+                }
+           elseif($numrow8 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($ins_info)){
+                    $_SESSION['role'] = "Instructor";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                    $_SESSION['specialization'] = $row['specialization'];
+                  } 
+                  header ('location: ../../dashboard.php');
+                }
+            elseif($numrow9 > 0)
+                {
+                  $_SESSION['username'] = $user;
+                  while($row = mysqli_fetch_array($ihl_info)){
+                    $_SESSION['role'] = "International Humanitarian Law";
+                    $_SESSION['userid'] = $row['a_id'];
+                    $_SESSION['uiid'] = $row['ui_id'];
+                  }
+
+                  header ('location: ../../dashboard.php');
+                }
+               
+             else
+                {
+                  echo "<script>alert('Invalid Account/Your Account is still Pending for Approval')</script>";
+                  
+                }
+             
+        }
+        
+      ?>
 <!-- /.login-box -->
 
 <!-- jQuery -->
@@ -78,9 +289,11 @@
   $(".toggle-password").click(function(){
     $(this).toggleClass("fa-eye fa-eye-slash");
     var input = $($(this).attr("toggle"));
-    if (input.attr("type")== "password"){
-      input.attr("type","text");
-    } else {
+      if (input.attr("type")== "password"){
+        input.attr("type","text");
+      } 
+
+      else {
       input.attr("type", "password");
     }
   });      

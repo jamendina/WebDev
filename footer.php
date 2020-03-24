@@ -1,4 +1,4 @@
-<footer class="main-footer">
+ <footer class="main-footer">
     <strong>OERMS - Online Event and Registration Management System</a>.</strong>
     <div class="float-right d-none d-sm-inline-block">
       <b>Team United</b>
@@ -41,6 +41,8 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <script src="plugins/fullcalendar/main.min.js"></script>
 <script src="plugins/fullcalendar-daygrid/main.min.js"></script>
@@ -56,6 +58,7 @@
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+
 <script>
   $(function () {
   $('#example1').DataTable()<!-- ============================================================== -->

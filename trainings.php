@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  include ('pages/connection.php');
+  if(!isset($_SESSION['username'])){
+    header ('Location: pages/login/login.php');
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include"head-css.php"; ?>
@@ -57,17 +64,53 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Rosediel P. Rivero</td>
-                            <td>San Roque, Daraga Albay</td>
-                            <td>09123456789</td>
-                            <td>Legazpi City Albay</td>
-                            <td><span class="badge bg-success">Active</span></td>
-                            <td><a href=""><span class="badge bg-primary"><i class="fas fa-edit"></i></span></a></td>
-                          </tr>
-                         
+                          <?php $equery = mysqli_query($con, "SELECT start,end,title,venue, description, stat_id, te_id  from tblevents where YEAR(start) >= YEAR(CURRENT_DATE()) and MONTH(start) >= MONTH(CURRENT_DATE()) order by start asc");
+                                            
+                                while($row = mysqli_fetch_array($equery))
+                                { 
+                                  $start = $row['start'];
+                                  $old_date_timestamp2 = strtotime($start);
+                                  $word_date2 = date('F j, Y', $old_date_timestamp2);
+
+                                  $end = $row['end'];
+                                  $old_date_timestamp3 = strtotime($end);
+                                  $word_date3 = date('F j, Y', $old_date_timestamp3);
+
+                                    echo '
+                                    <tr>
+                                        
+                                        
+                                        <td>'.$row['title'].'</td>
+                                        <td>'.$word_date2.' - '.$word_date3.'</td>
+                                        <td>'.$row['description'].'</td>  
+                                        <td>'.$row['venue'].'</td>
+                                        <td>'.($row['stat_id'] == "1" ? "<label style='color:green'>Active</label>" : (($row['stat_id'] == "3") ? "<label style='color:gray'>Cancelled</label>" : "<label style='color:black'>Standby</label>")) .'</td>';
+
+                                        if(($_SESSION['role'] == "System Administrator")||($_SESSION['role'] == "Chapter Administrator")||($_SESSION['role'] == "Safety Services")||($_SESSION['role'] == "Disaster Management Services")||($_SESSION['role'] == "Blood Services")||($_SESSION['role'] == "Welfare Services")||($_SESSION['role'] == "Volunteer Services")){
+                                                        echo '
+                                        <td>
+                                          <form method="POST" action="updateevent">
+                                            <input type="hidden" value="'.$row['te_id'].'" name="hidden_id" id="hidden_id"/>
+                                            <button type="submit" class="btn waves-effect waves-light btn-danger pull-right" id="btn" name="btn" ><i class="fa fa-edit"></i></button>
+                                          </form>
+                                        </td>
+                                        
+                                        
+                                        ';
+                                            }  
+                                        
+                                    
+                                    echo '
+                                       
+                                    </tr>
+
+                                    ';
+                                }
+                                
+                                ?>
                         </tbody>
                       </table>
+                      <button type="submit" class="btn waves-effect waves-light btn-secondary btn-sm" id="btn" name="btn" ><i class="fa fa-plus"></i> Add Training</button>
                     </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="paxlist">
@@ -82,14 +125,35 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John Paul D. Mangampo</td>
-                          <td>Legazpi City, Albay</td>
-                          <td>09123456789</td>
-                          <td><span class="badge bg-danger">Safety Services</span></td>
-                           <td><a href=""><span class="badge bg-primary"><i class="fas fa-eye"></i></span></a></td>
-                        </tr>
-                       
+                        <?php 
+                            $equery = mysqli_query($con, "SELECT tblevents.title, tblevents.stat_id, tblevents.e_max, tblevents.e_min, tblevents.e_hours, tblevents.e_days, tblevents.e_fee, tblevents.description, tblevents.venue, tbleventres.te_id, COUNT(tbleventres.ui_id) AS no, 
+                              ((tblevents.e_max) - count(tbleventres.ui_id)) AS remarks from tbleventres 
+                              right outer join tblevents on tbleventres.te_id = tblevents.te_id 
+                              where YEAR(tblevents.start) >= YEAR(CURRENT_DATE()) and MONTH(tblevents.start) >= MONTH(CURRENT_DATE())
+                              group by tblevents.te_id");
+                            
+
+                            while($row = mysqli_fetch_array($equery))
+                            { 
+                                echo '
+                                <tr>
+                                    <td>'.$row['title'].'</td>
+                                    <td>'.$row['venue'].'</td>
+                                    <td>'.$row['no'].'</td>
+                                    <td>'.$row['remarks'].' out of '.$row['e_max'].'</td>';
+                                    
+                                                    echo '
+                                    <td><button class="btn btn-success btn-sm btn" data-target="#viewmodal" data-event-id="'.$row['te_id'].'" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    </td>
+                                    
+                                </tr>
+                                ';
+                                
+                                
+                           
+                            }
+
+                            ?>
                       </tbody>
                     </table>
                   </div>
@@ -107,14 +171,45 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John Anthony B. Mendina</td>
-                          <td>Legazpi City, Albay</td>
-                          <td>09123456789</td>
-                          <td><span class="badge bg-danger">Red Cross Youth</span></td>
-                           <td><a href=""><span class="badge bg-success"><i class="fas fa-edit"></i> Assign</span></a></td>
-                        </tr>
-                       
+                         <?php $equery = mysqli_query($con, "SELECT * from tblevents
+                            where  YEAR(start) >= YEAR(CURRENT_DATE()) and MONTH(start) >= MONTH(CURRENT_DATE()) ORDER BY start ASC");
+                            $user = $_SESSION['username'];
+                            while($row = mysqli_fetch_array($equery))
+                            { 
+                              $start = $row['start'];
+                              $old_date_timestamp2 = strtotime($start);
+                              $word_date2 = date('F j, Y', $old_date_timestamp2);
+
+                              $end = $row['end'];
+                              $old_date_timestamp3 = strtotime($end);
+                              $word_date3 = date('F j, Y', $old_date_timestamp3);
+                                echo '
+                                <tr>
+                                    
+                                    
+                                    <td>'.$row['title'].'</td>
+                                    <td>'.$row['description'].'</td>
+                                    <td>'.$word_date2.' - '.$word_date3.'</td>
+                                    <td>'.$row['venue'].'</td>
+                                    ';
+                                    if(($_SESSION['role'] == "System Administrator")||($_SESSION['role'] == "Chapter Administrator")||($_SESSION['role'] == "Safety Services")||($_SESSION['role'] == "Disaster Management Services")||($_SESSION['role'] == "Blood Services")||($_SESSION['role'] == "Welfare Services")||($_SESSION['role'] == "Volunteer Services")){
+                                                    echo '
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm btn" data-toggle="modal" data-target="#assign'.$row['te_id'].'">Assign</button>
+                                    </td>
+                                    ';
+                                        }  
+                                    
+                                
+                                echo '
+                                   
+                                </tr>
+
+                                ';
+                                /**include "assign-instructorModal.php";**/
+                            }
+                            
+                            ?>
                       </tbody>
                     </table>
                   </div>
@@ -130,14 +225,31 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>John Anthony B. Mendina</td>
-                          <td>Legazpi City, Albay</td>
-                          <td>09123456789</td>
-                          <td><span class="badge bg-danger">March 12, 2020</span></td>
-                           <td><a href=""><span class="badge bg-primary"><i class="fas fa-eye"></i></span></a></td>
-                        </tr>
-                       
+                        <?php 
+                            if($_SESSION['role'] == "Instructor"){
+                           $iquery = mysqli_query($con, "SELECT *, tt.assignment_id as assignment_id from tblassignment tt 
+                                left join tblevents te on tt.te_id = te.te_id
+                                
+                                where a_id = '".$_SESSION['userid']."' and month(te.start) <= month(current_DATE())");
+                            while($row = mysqli_fetch_array($iquery))
+                            {
+                                echo '
+                                <tr>
+                                    <td>'.$row['title'].'</td>
+                                    <td>'.$row['description'].'</td>
+                                    <td>'?><?php echo"Start ".$row['start'].' - End '.$row['end'].'</td>
+                                    <td>'.$row['e_hours'].' Hour(s) / '.$row['e_days'].' Day(s)</td>
+                                    <td>
+                                    <a href="traineescore.php?id='.$row['te_id'].'" type="button" target="_blank" class="btn btn-primary btn-sm btn" data-target="#blank'.$row['te_id'].'"><i class="fa fa-eye"></i></a>
+                                    </button>
+                                    </td>
+
+                                </tr>
+                                ';
+                                
+                            }
+                        }
+                            ?>
                       </tbody>
                     </table>
                   </div>

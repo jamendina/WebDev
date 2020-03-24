@@ -1,3 +1,7 @@
+<?php
+session_start();
+  include("../connection.php");
+?>
 <!DOCTYPE html>
 <html>
 
@@ -115,84 +119,145 @@ function getAge(){
         <section class="content">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-1">
               </div>
-              <div class="col-md-6">
+              <div class="col-md-10">
                 <div class="card card-primary card-outline">
-                  <div class="card-header">
-                    <ul class="nav nav-pills">
-                      <li class="nav-item">User Information (fields with * are required)</li>
-                    </ul>
-                  </div><!-- /.card-header -->
+              <div class="card-header">
+                <h5 class="card-title"><b>User Information (fields with <b style="color: red;">*</b> are required)</b></h5>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <form role="form">
+                  <h5> <center>Basic Information</center></h5>
+                  <div class="row">
+                    <div class="col-sm-3  ">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>First Name:</label>
+                        <input  type="text" class="form-control" name="fn" id="fn" placeholder="First Name" onKeyPress="return ValidateAlpha(event);" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group">
+                        <label>Middle Name:</label>
+                        <input type="text" name="mn" id="mn"  class="form-control" placeholder="Middle Name" onKeyPress="return ValidateAlpha(event);" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Last Name:</label>
+                        <input type="text" name="ln" id="ln" class="form-control" placeholder="Last Name" onKeyPress="return ValidateAlpha(event);" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group">
+                        <label>Suffix Name:</label>
+                        <input type="text" name="sn" id="sn" class="form-control" placeholder="Suffix Name" onKeyPress="return ValidateAlpha(event);" required>
+                      </div>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col-sm-4">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Birthdate:</label>
+                        <input type="date" class="form-control" name="bdate" id="bdate" placeholder="Enter ..." required="">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Sex:</label>
+                        <select class="form-control" id="sex" name="sex" autocomplete="off" required>
+                                  <option disabled selected>Select Sex</option>
+                                  <option value="Male">Male</option>
+                                  <option value="Female">Female</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Civil Status:</label>
+                        <select class="form-control" id="civilstat" name="civilstat" autocomplete="off" required>
+                                  <option disabled selected>Select Status</option>
+                                  <option value="Male">Single</option>
+                                  <option value="Female">Married</option>
+                                  <option value="Female">Divorced</option>
+                                  <option value="Female">Separated</option>
+                                  <option value="Female">Widowed</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Educational Attainment/Course<b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" name="educ_att" id="educ_att" placeholder="Enter ..." required="">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Occupation/Year Level<b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" name="occupation" id="occupation" placeholder="Enter ..." required="">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Name of Company/School and Address<b style="color: red;">*</b></label>
+                        <input type="text" class="form-control" name="company" id="company" placeholder="Enter ..." required="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Blood Type:</label>
+                        <select class="form-control" id="bloodtype" name="bloodtype" autocomplete="off" required="">
+                          <option disabled selected>Your Blood Type</option>
+                          <option value="Unidentified">Unidentified</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Blood Donor:</label>
+                        <select class="form-control" id="donor" name="donor" required autocomplete="off" onchange="showDiv(this)">
+                          <option  value="" disabled selected>Yes/No</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group" id="hidden_div" style="display:none;">
+                          <label for="inputExperience">Date Last Donated <b style="color: red;">*</b></label>
+                          <div class="col-sm-8">
+                            <input type="date" name="date_donated" id="date_donated"  class="form-control" required="">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
 
-                  <div class="card-body">
-                    <h5> <center>Basic Information</center></h5>
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="settings">
-                        <form class="form-horizontal" action="" method="post" id="formcont">
-                          <div class="form-group row">
-                            <label for="inputName" class="col-sm-3 col-form-label">Account Type <b style="color: red;">*</b></label>
-                            <div class="col-sm-9">
-                              <select class="form-control" id="a_type" name="a_type" required>
-                              <option disabled selected>Select Type</option>
-                              <option value="Volunteer">Volunteer</option>
-                              <option value="Non-Volunteer">Non-Volunteer</option>
-                            </select>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputName" class="col-sm-2 col-form-label">First Name <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" name="fn" id="fn" placeholder="First Name" onKeyPress="return ValidateAlpha(event);" required>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Last Name <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                               <input type="text" class="form-control" name="ln" id="ln" placeholder="Last Name" onKeyPress="return ValidateAlpha(event);" required>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputName2" class="col-sm-2 col-form-label">Blood Type <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                                <select class="form-control" id="bloodtype" name="bloodtype" autocomplete="off" >
-                                  <option disabled selected>Your Blood Type</option>
-                                  <option value="Unidentified">Unidentified</option>
-                                  <option value="O+">O+</option>
-                                  <option value="O-">O-</option>
-                                  <option value="A+">A+</option>
-                                  <option value="A-">A-</option>
-                                  <option value="B+">B+</option>
-                                  <option value="B-">B-</option>
-                                  <option value="AB+">AB+</option>
-                                  <option value="AB-">AB-</option>
-                                </select>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputExperience" class="col-sm-2 col-form-label">Blood Donor? <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                             <select class="form-control" id="donor" name="donor" required autocomplete="off" onchange="showDiv(this)">
-                                <option  value="" disabled selected>Yes/No</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="form-group row" id="hidden_div" style="display:none;">
-                           <label for="inputExperience" class="col-sm-2 col-form-label">Date Last Donated <b style="color: red;">*</b></label>
-                            <div class="col-sm-8">
-                              <input type="date" name="date_donated" id="date_donated"  class="form-control">
-                            </div>
-                          </div>
-                        <hr>
-                    <h5><center>Membership Information</center></h5>
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="settings">
-                        <form class="form-horizontal">
-                          <div class="form-group row">
-                            <label for="inputName" class="col-sm-3 col-form-label">MAAB Type <b style="color: red;">*</b></label>
-                            <div class="col-sm-9">
+                  <!--end line for basic information-->
+                  <hr/>
+                  <h5><center>Membership Information</center></h5>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">MAAB Type <b style="color: red;">*</b></label>
                               <select class="form-control" name="maabtype_id" id="maabtype_id" autocomplete="off" >
                                  <?php
                                  echo' <option disabled selected>Select MAAB Type</option>';
@@ -212,83 +277,126 @@ function getAge(){
                                   ?>
                                 
                               </select>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputName" class="col-sm-2 col-form-label">Membership Effectivity <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                              <input type="date" class="form-control" name="effectivity" id="effectivity" required>
-                            </div>
-                          </div>
-                          <hr>
-
-                          <h5><center>Contact Information</center></h5>
-                          <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Email <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                               <input type="email"  id="email" placeholder="example@email.com" class="form-control form-control-line" name="email" required /><div id="emailstat"></div>
-                            </div>
-                          </div>
-                           <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Phone Number <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                               <input type="text" placeholder="Phone Number" class="form-control" name="cp_no" id="cp_no" onkeypress="javascript:return isNumber(event)" pattern="^[0-9]{10,12}$"  maxlength="11" required>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Address <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                              <input type="text" name="address" placeholder="Address" id="address" class="form-control form-control-line" required>
-                            </div>
-                          </div>
-                          <hr>
-                          <h5><center>Account Security Information</center></h5>
-                           <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Username <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="user" name="user" placeholder="Username" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?!.*\s).*$" required title="8 characters up, should contain letters, and no blank spaces">
-                              <div id="status"></div>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Password <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                                  <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"  pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?!.*\s)(?=.*[A-Z]).*$" required title="8 characters up, should contain letters, capital letters, digits and no blank spaces" required onkeyup='check()'>
-                              </div>
-                          </div>
-                           <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Confirm Password <b style="color: red;">*</b></label>
-                            <div class="col-sm-10">
-                                  <input type="password" class="form-control" id="cpass" name="cpass" placeholder="Confirm Password"  required onkeyup='check()'><span id="message"></span>
-                              </div>
-                          </div>
-                          <hr>
-                          <div class="form-group row">
-                            <div class="col-sm-15">
-                              <h6> <input type="checkbox" name="confirm" autocomplete="off" required> I hereby affirm that all the above information is complete and accurate. I know that any false or misleading information given by me can make me ineligible for admission or subject to dismissal. I also hereby provide my personal data only for the use of Philippine Red Cross for the belief of not divulging any information without my consent under R.A 10173 or the Data Privacy Act of 2012.</h6>
-                              </hr>
-
-                              <h6>Please click submit, if you have completely filled out the application form and validated all information.</h6>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-5 col-md-10">
-                              <button type="submit" class="btn btn-danger">Register</button>
-                            </div>
-                          </div>
-                        </div>
-                        </form>
                       </div>
-                      <!-- /.tab-pane -->
                     </div>
-                    <!-- /.tab-content -->
-                  </div><!-- /.card-body -->
-                </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="inputName">Membership Effectivity <b style="color: red;">*</b></label>
+                              <input type="date" class="form-control" name="effectivity" id="effectivity" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="inputName">Membership ID Number <b style="color: red;">*</b></label>
+                          <input type="text" class="form-control" name="maab_id" id="maab_id" required>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end line for membership information-->
+                  <hr/>
+                  <h5><center>Contact Information</center></h5>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Email<b style="color: red;">*</b></label>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Phone Number<b style="color: red;">*</b> </label>
+                              <input type="text" class="form-control" name="cp_no" id="cp_no" onkeypress="javascript:return isNumber(event)" pattern="^[0-9]{10,12}$"  maxlength="11" placeholder="09123456789" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Address<b style="color: red;">*</b></label>
+                      <input type="text" class="form-control" name="address" id="address" placeholder="Barangay San Juanico City Philippines" required>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end line for Contact information-->
+
+                  <hr/>
+                  <h5><center>Contact Person Incase of Emergency</center></h5>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Contact Person<b style="color: red;">*</b></label>
+                          <input type="text" class="form-control" name="name" id="name" placeholder="Enter...." required>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Contact Number<b style="color: red;">*</b></label>
+                              <input type="text" class="form-control" name="contactnumber" id="contactnumber" onkeypress="javascript:return isNumber(event)" pattern="^[0-9]{10,12}$" placeholder="09123456789"  maxlength="11" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Relationship to the Person<b style="color: red;">*</b></label>
+                          <input type="text" class="form-control" name="relationship" placeholder="Enter...." id="relationship" required>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end line for Contact Person incase of emergency information-->
+                 <hr/>
+                  <h5><center>Account Security Information</center></h5>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Username<b style="color: red;">*</b></label>
+                               <input type="text" class="form-control" id="user" name="user" placeholder="Username" pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?!.*\s).*$" required title="8 characters up, should contain letters, and no blank spaces">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label for="inputName">Password<b style="color: red;">*</b></label>
+                              <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"  pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?!.*\s)(?=.*[A-Z]).*$" required title="8 characters up, should contain letters, capital letters, digits and no blank spaces" required onkeyup='check()'>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <!-- textarea -->
+                      <div class="form-group">
+                         <label for="inputName">Confirm Password<b style="color: red;">*</b></label>
+                      <input type="password" class="form-control" id="cpass" name="cpass" placeholder="Confirm Password"  required onkeyup='check()'><span id="message"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end line for Account Security Information-->
+                  <div class="form-group row">
+                      <div class="col-sm-15">
+                        <h6> <input type="checkbox" name="confirm" autocomplete="off" required> I hereby affirm that all the above information is complete and accurate. I know that any false or misleading information given by me can make me ineligible for admission or subject to dismissal. I also hereby provide my personal data only for the use of Philippine Red Cross for the belief of not divulging any information without my consent under R.A 10173 or the Data Privacy Act of 2012.</h6>
+                        </hr>
+
+                        <h6>Please click submit, if you have completely filled out the application form and validated all information.</h6>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <!-- textarea -->
+                      <div class="form-group">
+                         <button type="submit" class="btn btn-danger btn-lg">Register</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+              <!-- /.card-body -->
+            </div>
                 <!-- /.nav-tabs-custom -->
               </div>
               <!-- /.col -->
               
-            </div>
+            
             <!-- /.row -->
           </div><!-- /.container-fluid -->
         </section>
@@ -303,7 +411,7 @@ function getAge(){
           $pass = $_POST['pass'];
           $cpass = $_POST['cpass'];
           $date_donated = $_POST['date_donated'];
-          $a_type = $_POST['a_type'];
+          $a_type = "Trainee";
           $email= $_POST['email'];
           $cp_no = $_POST['cp_no'];
           $address = $_POST['address'];
@@ -366,7 +474,7 @@ function getAge(){
                               mysqli_commit($con);
 
                               echo "<script>alert('successfully registered!')</script>";
-                              echo "<script>window.location='../login/login'</script";
+                              echo "<script>window.location='../login/login.php'</script";
                       }
                     }
                         mysqli_autocommit($con,FALSE);

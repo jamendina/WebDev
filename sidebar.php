@@ -1,10 +1,16 @@
+<?php
+  include ('pages/connection.php');
+  if(!isset($_SESSION['username'])){
+    header ('Location: pages/login/login.php');
+  }
+?>
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
       <img src="dist/img/prc-logo.png" alt="Philippine Red Cross Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Philippine Red Cross</span>
+      <span class="brand-text font-weight-light"><b>Philippine Red Cross</b></span>
     </a>
 
     <!-- Sidebar -->
@@ -12,10 +18,27 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php  $user = mysqli_query($con,"SELECT tu.position, ui.img_path, CONCAT(ln, ', ', fn,'') as sname from tblaccount ta 
+                                      inner join tbluserinfo ui ON ta.ui_id = ui.ui_id 
+                                      left join tbluposition tu on ta.ui_id = tu.ui_id where ta.ui_id =  '".$_SESSION['uiid']."' ");
+                                    while($row = mysqli_fetch_array($user)){
+                                                echo ' '.$row['img_path'].' '; }?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="profile.php" class="d-block">Alexander Pierce</a>
+          
+            <?php
+                                             $user = mysqli_query($con,"SELECT tu.position, ui.img_path, CONCAT(ln, ', ', fn,'') as sname from tblaccount ta 
+                                      inner join tbluserinfo ui ON ta.ui_id = ui.ui_id 
+                                      left join tbluposition tu on ta.ui_id = tu.ui_id where ta.ui_id =  '".$_SESSION['uiid']."' ");
+                                    while($row = mysqli_fetch_array($user)){
+                                                echo ' 
+                                                    
+                                                    <a href="profile.php" class="d-block"> '.$row['sname'].'</a>';
+                                                    
+                                                   
+                                                
+                                            }?>
+                                        
         </div>
       </div>
 

@@ -1,3 +1,9 @@
+<?php
+  if(!isset($_SESSION['username'])){
+    header ('Location: pages/login/login.php');
+  }
+  include ('pages/connection.php');
+?>
 <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-danger">
     <!-- Left navbar links -->
@@ -40,7 +46,7 @@
       </li>
       <!-- Sign-out button -->
       <li class="nav-item dropdown">
-        <a class="nav-link" href="pages/login/login.php">
+        <a class="nav-link" href="logout.php">
           <i class="fas fa-sign-out-alt"></i>
           <span class="badge badge-success navbar-badge"></span>
         </a>

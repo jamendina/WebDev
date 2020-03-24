@@ -32,4 +32,7 @@
   <link rel="stylesheet" href="plugins/fullcalendar-bootstrap/main.min.css">
    <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
 </head>
