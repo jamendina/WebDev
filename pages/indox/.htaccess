@@ -1,0 +1,12 @@
+RewriteEngine on
+
+ReWriteCond %{REQUEST_FILENAME} !-d
+ReWriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+RewriteRule ^(about-page)$ $1.php [NC,L]
+RewriteRule ^(landing-page)$ $1.php [NC,L]
+RewriteRule ^(developer-page)$ $1.php [NC,L]
+RewriteRule ^(/login/login)$ $1.php [NC,L]
+RewriteRule ^(/registration/register)$ $1.php [NC,L]
+

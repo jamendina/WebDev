@@ -4,6 +4,11 @@
     header ('Location: pages/login/login.html');
   }
 ?>
+<?php
+$page = basename($_SERVER['SCRIPT_NAME']);
+
+ob_start();
+    echo '
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -18,15 +23,14 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?php  $user = mysqli_query($con,"SELECT tu.position, ui.img_path, CONCAT(ln, ', ', fn,'') as sname from tblaccount ta 
+          <img src="';  $user = mysqli_query($con,"SELECT tu.position, ui.img_path, CONCAT(ln, ', ', fn,'') as sname from tblaccount ta 
                                       inner join tbluserinfo ui ON ta.ui_id = ui.ui_id 
                                       left join tbluposition tu on ta.ui_id = tu.ui_id where ta.ui_id =  '".$_SESSION['uiid']."' ");
                                     while($row = mysqli_fetch_array($user)){
-                                                echo ' '.$row['img_path'].' '; }?>" class="img-circle elevation-2" alt="User Image">
+                                                echo ' '.$row['img_path'].' " class="img-circle elevation-2" alt="User Image">
         </div>
-        <div class="info">
+        <div class="info">';}
           
-            <?php
                                              $user = mysqli_query($con,"SELECT tu.position, ui.img_path, CONCAT(ln, ', ', fn,'') as sname from tblaccount ta 
                                       inner join tbluserinfo ui ON ta.ui_id = ui.ui_id 
                                       left join tbluposition tu on ta.ui_id = tu.ui_id where ta.ui_id =  '".$_SESSION['uiid']."' ");
@@ -37,7 +41,7 @@
                                                     
                                                    
                                                 
-                                            }?>
+                                            }echo '
                                         
         </div>
       </div>
@@ -48,7 +52,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="dashboard.html" class="nav-link">
+            <a href="dashboard.html" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -106,4 +110,4 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-  </aside>
+  </aside>';?>
