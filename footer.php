@@ -46,9 +46,8 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- SweetAlert2 -->
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-
-
-
+<!-- fullCalendar 2.2.5 -->
+<script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/fullcalendar/main.min.js"></script>
 <script src="plugins/fullcalendar-daygrid/main.min.js"></script>
 <script src="plugins/fullcalendar-timegrid/main.min.js"></script>

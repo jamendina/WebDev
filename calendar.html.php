@@ -113,20 +113,7 @@
   <!-- /.content-wrapper -->
    <?php include('footer.php'); ?>
 </div>
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- jQuery UI -->
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-
-<!-- fullCalendar 2.2.5 -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/fullcalendar/main.min.js"></script>
-<script src="plugins/fullcalendar-daygrid/main.min.js"></script>
-<script src="plugins/fullcalendar-timegrid/main.min.js"></script>
-<script src="plugins/fullcalendar-interaction/main.min.js"></script>
-<script src="plugins/fullcalendar-bootstrap/main.min.js"></script>
+<!-- Page specific script -->
 <script>
   $(function () {
 
@@ -194,7 +181,6 @@
         center: 'title',
         right : 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      
       //Random default events
       events    : [
         {
@@ -203,6 +189,36 @@
           backgroundColor: '#f56954', //red
           borderColor    : '#f56954', //red
           allDay         : true
+        },
+        {
+          title          : 'Long Event',
+          start          : new Date(y, m, d - 5),
+          end            : new Date(y, m, d - 2),
+          backgroundColor: '#f39c12', //yellow
+          borderColor    : '#f39c12' //yellow
+        },
+        {
+          title          : 'Meeting',
+          start          : new Date(y, m, d, 10, 30),
+          allDay         : false,
+          backgroundColor: '#0073b7', //Blue
+          borderColor    : '#0073b7' //Blue
+        },
+        {
+          title          : 'Lunch',
+          start          : new Date(y, m, d, 12, 0),
+          end            : new Date(y, m, d, 14, 0),
+          allDay         : false,
+          backgroundColor: '#00c0ef', //Info (aqua)
+          borderColor    : '#00c0ef' //Info (aqua)
+        },
+        {
+          title          : 'Birthday Party',
+          start          : new Date(y, m, d + 1, 19, 0),
+          end            : new Date(y, m, d + 1, 22, 30),
+          allDay         : false,
+          backgroundColor: '#00a65a', //Success (green)
+          borderColor    : '#00a65a' //Success (green)
         },
         {
           title          : 'Click for Google',
@@ -266,120 +282,6 @@
       $('#new-event').val('')
     })
   })
-</script>
-<script type="text/javascript">
-    function myFunction(){
-        var x = document.getElementsByName("date_start").min;
-    }
-</script>
-<script>
-
-$(document).ready(function () {
-    var calendar = $('#calendar').fullCalendar({
-
-        header: {
-        left: 'prev,next today, addEventButton',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listWeek'
-      }, 
-
-      eventClick: function(calEvent, jsEvent, view) {
-
-        var start = moment(calEvent.start).format('YYYY-MM-DD '),
-            end = (calEvent.end) ? moment(calEvent.end).format('YYYY-MM-DD ') : start;
-
-        console.log(start, end);
-        $('input#editTitle').val(calEvent.title);
-        $('input#editVenue').val(calEvent.venue);
-        $('input#hidden_id').val(calEvent.te_id);
-        $('textarea#editDescription').val(calEvent.description);
-        $('#editEvent').modal('show');
-
-
-        // change the border color just for fun
-        $(this).css('border-color', 'black');
-      },
-      select: function(start, end) {
-                if(start.isBefore(moment())){
-                    $('#calendar').fullCalendar('unselect');
-                    alert('Cant Select Past Dates!');
-                    return false;
-                }
-                else{   
-                $('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-                $('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
-                $('#ModalAdd').modal('show');
-                }
-            },
-
-        editable: false,
-        navLinks: true, // can click day/week names to navigate views
-        eventLimit: true, // allow "more" link when too many events
-        events: "Calendar-Fetch-Event.php",
-        displayEventTime: true,
-        selectable: true,
-        selectHelper: true,
-        select: function (start, end) {
-            var title = prompt('Event Title: ');
-            var venue = prompt('Event Venue: ');
-            
-
-            if (title||venue) {
-                var start = $.fullCalendar.formatDate(start, "YYYY-MM-DD"), end = $.fullCalendar.formatDate(end, "YYYY-MM-DD");
-
-                $.ajax({
-                    url: 'add-event.php',
-                    data: 'title=' + title + '&venue=' + venue + '&start=' + start + '&end=' + end,
-                    type: "POST",
-                    success: function (data) {
-                        alert('Added Successfully');
-                    }
-                });
-                calendar.fullCalendar('renderEvent',
-                        {
-                            title: title,
-                            venue: venue,
-                            start: start,
-                            end: end,
-                            allDay: true
-                        },true
-                        );
-            }
-            calendar.fullCalendar('unselect');
-        },
-        
-        editable: true,
-        eventDrop: function (event, delta) {
-                    var start = $.fullCalendar.formatDate(event.start, "YYYY-MM-DD");
-                    var end = $.fullCalendar.formatDate(event.end, "YYYY-MM-DD");
-                    $.ajax({
-                        url: 'edit-event.php',
-                        data: 'title=' + event.title + '&venue=' + venue + '&start=' + start + '&end=' + end + '&te_id=' + event.te_id,
-                        type: "POST",
-                        success: function (response) {
-                            alert("Updated Successfully");
-                        }
-                    });
-                }
-        
-    });
-});
-
-
-</script>
-<script>
-    var today = new Date().toISOString().split("T")[0];
-                  document.getElementsByName("date_start")[0].setAttribute("min", today);
-
-                   var today = new Date().toISOString().split("T")[0];
-                  document.getElementsByName("date_end")[0].setAttribute("min", today);
-
-</script>
-<script type="text/javascript">
-    function displayMessage(message) {
-      $(".response").html("<div class='success'>"+message+"</div>");
-    setInterval(function() { $(".success").fadeOut(); }, 1000);
-}
 </script>
 </body>
 </html>

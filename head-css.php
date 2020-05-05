@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-   <!-- fullCalendar -->
+  <!-- fullCalendar -->
   <link rel="stylesheet" href="plugins/fullcalendar/main.min.css">
   <link rel="stylesheet" href="plugins/fullcalendar-daygrid/main.min.css">
   <link rel="stylesheet" href="plugins/fullcalendar-timegrid/main.min.css">
