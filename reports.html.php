@@ -235,6 +235,82 @@ Highcharts.chart('user-population', {
 
         $dec = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '12' and date_donated = YEAR(CURRENT_DATE())");
         $d12 = mysqli_num_rows($dec);
+
+        /**/
+
+        $jan = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '01' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b1 = mysqli_num_rows($jan);
+
+        $feb = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '02' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b2 = mysqli_num_rows($feb);
+
+        $mar = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '03' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b3 = mysqli_num_rows($mar);
+
+        $apr = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '04' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b4 = mysqli_num_rows($apr);
+
+        $may = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '05' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b5 = mysqli_num_rows($may);
+
+        $jun = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '06' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b6 = mysqli_num_rows($jun);
+
+        $jul = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '07' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b7 = mysqli_num_rows($jul);
+
+        $aug = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '08' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b8 = mysqli_num_rows($aug);
+
+        $sep = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '09' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b9 = mysqli_num_rows($sep);
+
+        $oct = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '10' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b10 = mysqli_num_rows($oct);
+
+        $nov = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '11' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b11 = mysqli_num_rows($nov);
+
+        $dec = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '12' and date_donated = YEAR(CURRENT_DATE())-1");
+        $b12 = mysqli_num_rows($dec);
+
+        /***/
+
+        $jan = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '01' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c1 = mysqli_num_rows($jan);
+
+        $feb = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '02' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c2 = mysqli_num_rows($feb);
+
+        $mar = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '03' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c3 = mysqli_num_rows($mar);
+
+        $apr = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '04' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c4 = mysqli_num_rows($apr);
+
+        $may = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '05' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c5 = mysqli_num_rows($may);
+
+        $jun = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '06' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c6 = mysqli_num_rows($jun);
+
+        $jul = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '07' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c7 = mysqli_num_rows($jul);
+
+        $aug = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '08' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c8 = mysqli_num_rows($aug);
+
+        $sep = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '09' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c9 = mysqli_num_rows($sep);
+
+        $oct = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '10' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c10 = mysqli_num_rows($oct);
+
+        $nov = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '11' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c11 = mysqli_num_rows($nov);
+
+        $dec = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '12' and date_donated = YEAR(CURRENT_DATE())-2");
+        $c12 = mysqli_num_rows($dec);
     ?>
 Highcharts.chart('blood-population', {
     chart: {
@@ -281,8 +357,20 @@ Highcharts.chart('blood-population', {
         }
     },
     series: [{
-        name: 'Population for  <?php echo date('Y');?>',
+        name: '<?php echo date('Y');?>',
         data: [['January',<?php echo $d1; ?>],['February',<?php echo $d2; ?>],['March',<?php echo $d3; ?>],['April',<?php echo $d4; ?>],['May',<?php echo $d5; ?>],['June',<?php echo $d6; ?>],['July',<?php echo $d7; ?>],['August',<?php echo $d8; ?>],['September',<?php echo $d9; ?>],['October',<?php echo $d10; ?>],['November',<?php echo $d11; ?>],['December',<?php echo $d12; ?>]
+        ]
+
+    },
+    {
+        name: '<?php echo date('Y')-1;?>',
+        data: [['January',<?php echo $b1; ?>],['February',<?php echo $b2; ?>],['March',<?php echo $b3; ?>],['April',<?php echo $b4; ?>],['May',<?php echo $b5; ?>],['June',<?php echo $b6; ?>],['July',<?php echo $b7; ?>],['August',<?php echo $b8; ?>],['September',<?php echo $b9; ?>],['October',<?php echo $b10; ?>],['November',<?php echo $b11; ?>],['December',<?php echo $b12; ?>]
+        ]
+
+    },
+    {
+        name: '<?php echo date('Y')-2;?>',
+        data: [['January',<?php echo $c1; ?>],['February',<?php echo $c2; ?>],['March',<?php echo $c3; ?>],['April',<?php echo $c4; ?>],['May',<?php echo $c5; ?>],['June',<?php echo $c6; ?>],['July',<?php echo $c7; ?>],['August',<?php echo $c8; ?>],['September',<?php echo $c9; ?>],['October',<?php echo $c10; ?>],['November',<?php echo $c11; ?>],['December',<?php echo $c12; ?>]
         ]
 
     }]
@@ -420,41 +508,81 @@ $d12 = mysqli_num_rows($dec);
 
 $past1 = Date('Y', -2);
 
-$jan = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '01'  and start = YEAR(-1)");
+$jan = mysqli_query($con,"SELECT * from tblevents where MONTH(start) = '01'  and start = YEAR(CURRENT_DATE())-1");
 $b1 = mysqli_num_rows($jan);
 
-$feb = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '02' and start = '".$past1."'");
+$feb = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '02' and start = YEAR(CURRENT_DATE())-1");
 $b2 = mysqli_num_rows($feb);
 
-$mar = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '03' and start = '".$past1."'");
+$mar = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '03' and start = YEAR(CURRENT_DATE())-1");
 $b3 = mysqli_num_rows($mar);
 
-$apr = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '04' and start = '".$past1."'");
+$apr = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '04' and start = YEAR(CURRENT_DATE())-1");
 $b4 = mysqli_num_rows($apr);
 
-$may = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '05' and start = '".$past1."'");
+$may = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '05' and start = YEAR(CURRENT_DATE())-1");
 $b5 = mysqli_num_rows($may);
 
-$jun = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '06' and start = '".$past1."'");
+$jun = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '06' and start = YEAR(CURRENT_DATE())-1");
 $b6 = mysqli_num_rows($jun);
 
-$jul = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '07' and start = '".$past1."'");
+$jul = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '07' and start = YEAR(CURRENT_DATE())-1");
 $b7 = mysqli_num_rows($jul);
 
-$aug = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '08' and start = '".$past1."'");
+$aug = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '08' and start = YEAR(CURRENT_DATE())-1");
 $b8 = mysqli_num_rows($aug);
 
-$sep = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '09' and start = '".$past1."'");
+$sep = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '09' and start = YEAR(CURRENT_DATE())-1");
 $b9 = mysqli_num_rows($sep);
 
-$oct = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '10' and start = '".$past1."'");
+$oct = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '10' and start = YEAR(CURRENT_DATE())-1");
 $b10 = mysqli_num_rows($oct);
 
-$nov = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '11' and start = '".$past1."'");
+$nov = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '11' and start = YEAR(CURRENT_DATE())-1");
 $b11 = mysqli_num_rows($nov);
 
-$dec = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '12' and start = '".$past1."'");
+$dec = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '12' and start = YEAR(CURRENT_DATE())-1");
 $b12 = mysqli_num_rows($dec);
+
+/***/
+
+
+$jan = mysqli_query($con,"SELECT * from tblevents where MONTH(start) = '01'  and start = YEAR(CURRENT_DATE())-2");
+$c1 = mysqli_num_rows($jan);
+
+$feb = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '02' and start = YEAR(CURRENT_DATE())-2");
+$c2 = mysqli_num_rows($feb);
+
+$mar = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '03' and start = YEAR(CURRENT_DATE())-2");
+$c3 = mysqli_num_rows($mar);
+
+$apr = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '04' and start = YEAR(CURRENT_DATE())-2");
+$c4 = mysqli_num_rows($apr);
+
+$may = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '05' and start = YEAR(CURRENT_DATE())-2");
+$c5 = mysqli_num_rows($may);
+
+$jun = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '06' and start = YEAR(CURRENT_DATE())-2");
+$c6 = mysqli_num_rows($jun);
+
+$jul = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '07' and start = YEAR(CURRENT_DATE())-2");
+$c7 = mysqli_num_rows($jul);
+
+$aug = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '08' and start = YEAR(CURRENT_DATE())-2");
+$c8 = mysqli_num_rows($aug);
+
+$sep = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '09' and start = YEAR(CURRENT_DATE())-2");
+$c9 = mysqli_num_rows($sep);
+
+$oct = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '10' and start = YEAR(CURRENT_DATE())-2");
+$c10 = mysqli_num_rows($oct);
+
+$nov = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '11' and start = YEAR(CURRENT_DATE())-2");
+$c11 = mysqli_num_rows($nov);
+
+$dec = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '12' and start = YEAR(CURRENT_DATE())-2");
+$c12 = mysqli_num_rows($dec);
+
 ?>
 Highcharts.chart('trainings-conducted', {
     chart: {
@@ -514,7 +642,7 @@ Highcharts.chart('trainings-conducted', {
     },
     {
         name: '<?php echo date('Y')-2;?>',
-        data: [['January',<?php echo $d1; ?>],['February',<?php echo $d2; ?>],['March',<?php echo $d3; ?>],['April',<?php echo $d4; ?>],['May',<?php echo $d5; ?>],['June',<?php echo $d6; ?>],['July',<?php echo $d7; ?>],['August',<?php echo $d8; ?>],['September',<?php echo $d9; ?>],['October',<?php echo $d10; ?>],['November',<?php echo $d11; ?>],['December',<?php echo $d12; ?>]
+        data: [['January',<?php echo $c1; ?>],['February',<?php echo $c2; ?>],['March',<?php echo $c3; ?>],['April',<?php echo $c4; ?>],['May',<?php echo $c5; ?>],['June',<?php echo $c6; ?>],['July',<?php echo $c7; ?>],['August',<?php echo $c8; ?>],['September',<?php echo $c9; ?>],['October',<?php echo $c10; ?>],['November',<?php echo $c11; ?>],['December',<?php echo $c12; ?>]
         ]
 
     }

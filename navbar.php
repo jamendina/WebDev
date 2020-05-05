@@ -26,7 +26,7 @@
                     $npresent = $present + 3;
                     $presents = $npresent;
 
-                    $upcoming = "SELECT * from tblevents where day(start) BETWEEN day(CURRENT_DATE()) and '$presents' and stat_id ='1'";
+                    $upcoming = "SELECT * from tblevents where day(start) BETWEEN day(CURRENT_DATE()) and '".$presents."' and stat_id ='1'";
                     $query1 = mysqli_query($con, $upcoming);
                     $upcomingtotal= mysqli_num_rows($query1);
 
@@ -50,7 +50,7 @@
                     #non-staff notification
                     
                     $nsupcoming = "SELECT *, ter.ter_id as ter_id from tbleventres ter 
-                                                left join tblevents te on ter.te_id = te.te_id where ui_id = '".$_SESSION['uiid']."' and day(start) BETWEEN day(CURRENT_DATE()) and day(CURRENT_DATE()+5) and stat_id ='1' ";
+                                                left join tblevents te on ter.te_id = te.te_id where ui_id = '".$_SESSION['uiid']."' and day(start) BETWEEN day(CURRENT_DATE()) and day(CURRENT_DATE())+5 and stat_id ='1' ";
                     $nsquery1 = mysqli_query($con, $nsupcoming);
                     $nsupcomingtotal= mysqli_num_rows($nsquery1);
 
