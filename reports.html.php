@@ -38,29 +38,6 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <!-- interactive chart -->
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="far fa-chart-bar"></i>
-                  Interactive Area Chart
-                </h3>
-
-                <div class="card-tools">
-                  Real time
-                  <div class="btn-group" id="realtime" data-toggle="btn-toggle">
-                    <button type="button" class="btn btn-default btn-sm active" data-toggle="on">On</button>
-                    <button type="button" class="btn btn-default btn-sm" data-toggle="off">Off</button>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div id="interactive" style="height: 300px;"></div>
-              </div>
-              <!-- /.card-body-->
-            </div>
-            <!-- /.card -->
-
           </div>
           <!-- /.col -->
         </div>
@@ -72,18 +49,11 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
-                  Line Chart
+                  User Population Chart
                 </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                  </button>
-                </div>
               </div>
               <div class="card-body">
-                <div id="line-chart" style="height: 300px;"></div>
+                <div id="user-population" style="height: 338px;"></div>
               </div>
               <!-- /.card-body-->
             </div>
@@ -94,18 +64,11 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
-                  Area Chart
+                  MAAB Availments
                 </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                  </button>
-                </div>
               </div>
               <div class="card-body">
-                <div id="area-chart" style="height: 338px;" class="full-width-chart"></div>
+                <div id="Maab-Availments" style="height: 375px;" class="full-width-chart"></div>
               </div>
               <!-- /.card-body-->
             </div>
@@ -120,20 +83,11 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
-                  Bar Chart
+                  Blood Chart
                 </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
               </div>
               <div class="card-body">
-                <div id="bar-chart" style="height: 300px;"></div>
+                <div id="blood-population" style="height: 338px;"></div>
               </div>
               <!-- /.card-body-->
             </div>
@@ -144,18 +98,11 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="far fa-chart-bar"></i>
-                  Donut Chart
+                  Trainings Chart
                 </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                  </button>
-                </div>
               </div>
               <div class="card-body">
-                <div id="donut-chart" style="height: 300px;"></div>
+                <div id="trainings-conducted" style="height: 338px;"></div>
               </div>
               <!-- /.card-body-->
             </div>
@@ -173,292 +120,408 @@
    <?php include('footer.php'); ?>
 </div>
 <script>
-  $(function () {
-    /*
-     * Flot Interactive Chart
-     * -----------------------
-     */
-    // We use an inline data source in the example, usually data would
-    // be fetched from a server
-    var data        = [],
-        totalPoints = 100
+     <?php 
+        $staff = mysqli_query($con, "SELECT * from tblaccount where a_type = 'Staff' and status = 'Active'");
+        $d1 = mysqli_num_rows($staff);
 
-    function getRandomData() {
+        $instructor = mysqli_query($con, "SELECT * from tblaccount where a_type = 'Instructor' and status = 'Active'");
+        $d2 = mysqli_num_rows($instructor);
 
-      if (data.length > 0) {
-        data = data.slice(1)
-      }
+        $trainee = mysqli_query($con, "SELECT * from tblaccount where a_type = 'Trainee' and status = 'Active'");
+        $d3 = mysqli_num_rows($trainee);
 
-      // Do a random walk
-      while (data.length < totalPoints) {
+    ?>
+<?php 
+        $a1 = mysqli_query($con, "SELECT * from tbluserinfo where bloodtype = 'A-' || bloodtype = 'A+'");
+        $a = mysqli_num_rows($a1);
 
-        var prev = data.length > 0 ? data[data.length - 1] : 50,
-            y    = prev + Math.random() * 10 - 5
+        $b1 = mysqli_query($con, "SELECT * from tbluserinfo where bloodtype = 'B-' || bloodtype = 'B+'");
+        $b = mysqli_num_rows($b1);
 
-        if (y < 0) {
-          y = 0
-        } else if (y > 100) {
-          y = 100
-        }
+        $o1 = mysqli_query($con, "SELECT * from tbluserinfo where bloodtype = 'O-' || bloodtype = 'O+'");
+        $o = mysqli_num_rows($o1);
 
-        data.push(y)
-      }
-
-      // Zip the generated y values with the x values
-      var res = []
-      for (var i = 0; i < data.length; ++i) {
-        res.push([i, data[i]])
-      }
-
-      return res
-    }
-
-    var interactive_plot = $.plot('#interactive', [
-        {
-          data: getRandomData(),
-        }
-      ],
-      {
-        grid: {
-          borderColor: '#f3f3f3',
-          borderWidth: 1,
-          tickColor: '#f3f3f3'
-        },
-        series: {
-          color: '#3c8dbc',
-          lines: {
-            lineWidth: 2,
-            show: true,
-            fill: true,
-          },
-        },
-        yaxis: {
-          min: 0,
-          max: 100,
-          show: true
-        },
-        xaxis: {
-          show: true
-        }
-      }
-    )
-
-    var updateInterval = 500 //Fetch data ever x milliseconds
-    var realtime       = 'on' //If == to on then fetch data every x seconds. else stop fetching
-    function update() {
-
-      interactive_plot.setData([getRandomData()])
-
-      // Since the axes don't change, we don't need to call plot.setupGrid()
-      interactive_plot.draw()
-      if (realtime === 'on') {
-        setTimeout(update, updateInterval)
-      }
-    }
-
-    //INITIALIZE REALTIME DATA FETCHING
-    if (realtime === 'on') {
-      update()
-    }
-    //REALTIME TOGGLE
-    $('#realtime .btn').click(function () {
-      if ($(this).data('toggle') === 'on') {
-        realtime = 'on'
-      }
-      else {
-        realtime = 'off'
-      }
-      update()
-    })
-    /*
-     * END INTERACTIVE CHART
-     */
-
-
-    /*
-     * LINE CHART
-     * ----------
-     */
-    //LINE randomly generated data
-
-    var sin = [],
-        cos = []
-    for (var i = 0; i < 14; i += 0.5) {
-      sin.push([i, Math.sin(i)])
-      cos.push([i, Math.cos(i)])
-    }
-    var line_data1 = {
-      data : sin,
-      color: '#3c8dbc'
-    }
-    var line_data2 = {
-      data : cos,
-      color: '#00c0ef'
-    }
-    $.plot('#line-chart', [line_data1, line_data2], {
-      grid  : {
-        hoverable  : true,
-        borderColor: '#f3f3f3',
-        borderWidth: 1,
-        tickColor  : '#f3f3f3'
-      },
-      series: {
-        shadowSize: 0,
-        lines     : {
-          show: true
-        },
-        points    : {
-          show: true
-        }
-      },
-      lines : {
-        fill : false,
-        color: ['#3c8dbc', '#f56954']
-      },
-      yaxis : {
-        show: true
-      },
-      xaxis : {
-        show: true
-      }
-    })
-    //Initialize tooltip on hover
-    $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
-      position: 'absolute',
-      display : 'none',
-      opacity : 0.8
-    }).appendTo('body')
-    $('#line-chart').bind('plothover', function (event, pos, item) {
-
-      if (item) {
-        var x = item.datapoint[0].toFixed(2),
-            y = item.datapoint[1].toFixed(2)
-
-        $('#line-chart-tooltip').html(item.series.label + ' of ' + x + ' = ' + y)
-          .css({
-            top : item.pageY + 5,
-            left: item.pageX + 5
-          })
-          .fadeIn(200)
-      } else {
-        $('#line-chart-tooltip').hide()
-      }
-
-    })
-    /* END LINE CHART */
-
-    /*
-     * FULL WIDTH STATIC AREA CHART
-     * -----------------
-     */
-    var areaData = [[2, 88.0], [3, 93.3], [4, 102.0], [5, 108.5], [6, 115.7], [7, 115.6],
-      [8, 124.6], [9, 130.3], [10, 134.3], [11, 141.4], [12, 146.5], [13, 151.7], [14, 159.9],
-      [15, 165.4], [16, 167.8], [17, 168.7], [18, 169.5], [19, 168.0]]
-    $.plot('#area-chart', [areaData], {
-      grid  : {
-        borderWidth: 0
-      },
-      series: {
-        shadowSize: 0, // Drawing is faster without shadows
-        color     : '#00c0ef',
-        lines : {
-          fill: true //Converts the line chart to area chart
-        },
-      },
-      yaxis : {
-        show: false
-      },
-      xaxis : {
-        show: false
-      }
-    })
-
-    /* END AREA CHART */
-
-    /*
-     * BAR CHART
-     * ---------
-     */
-
-    var bar_data = {
-      data : [[1,10], [2,8], [3,4], [4,13], [5,17], [6,9],[7,10], [8,8], [9,4], [10,13], [11,17], [12,9]],
-      bars: { show: true }
-    }
-    $.plot('#bar-chart', [bar_data], {
-      grid  : {
-        borderWidth: 1,
-        borderColor: '#f3f3f3',
-        tickColor  : '#f3f3f3'
-      },
-      series: {
-         bars: {
-          show: true, barWidth: 0.5, align: 'center',
-        },
-      },
-      colors: ['#3c8dbc'],
-      xaxis : {
-        ticks: [[1,'January'], [2,'February'], [3,'March'], [4,'April'], [5,'May'], [6,'June'],[7,'July'], [8,'August'], [9,'September'], [10,'October'], [11,'November'], [12,'December']]
-      }
-    })
-    /* END BAR CHART */
-
-    /*
-     * DONUT CHART
-     * -----------
-     */
-
-    var donutData = [
-      {
-        label: 'Series2',
-        data : 30,
-        color: '#3c8dbc'
-      },
-      {
-        label: 'Series3',
-        data : 20,
-        color: '#0073b7'
-      },
-      {
-        label: 'Series4',
-        data : 50,
-        color: '#00c0ef'
-      }
-    ]
-    $.plot('#donut-chart', donutData, {
-      series: {
-        pie: {
-          show       : true,
-          radius     : 1,
-          innerRadius: 0.5,
-          label      : {
-            show     : true,
-            radius   : 2 / 3,
-            formatter: labelFormatter,
-            threshold: 0.1
-          }
-
-        }
-      },
-      legend: {
-        show: false
-      }
-    })
-    /*
-     * END DONUT CHART
-     */
-
-  })
-
-  /*
-   * Custom Label formatter
-   * ----------------------
-   */
-  function labelFormatter(label, series) {
-    return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
-      + label
-      + '<br>'
-      + Math.round(series.percent) + '%</div>'
-  }
+        $ab1 = mysqli_query($con, "SELECT * from tbluserinfo where bloodtype = 'AB-' || bloodtype = 'AB+'");
+        $ab = mysqli_num_rows($ab1);
+    ?>
 </script>
+<script type="text/javascript">
+  <?php 
+        $jan = mysqli_query($con, "SELECT * from tblaccount where a_type = 'Staff' and status = 'Active'");
+        $d1 = mysqli_num_rows($jan);
+
+        $feb = mysqli_query($con, "SELECT * from tblaccount where a_type = 'Instructor' and status = 'Active'");
+        $d2 = mysqli_num_rows($feb);
+
+        $mar = mysqli_query($con, "SELECT * from tblaccount where a_type = 'Trainee' and status = 'Active'");
+        $d3 = mysqli_num_rows($mar);
+    ?>
+Highcharts.chart('user-population', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'User Population'
+    },
+    xAxis: {
+        categories: [
+            'Staff',
+            'Instructor',
+            'Trainee'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'System User'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:1f}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Population',
+        data: [['Staff',<?php echo $d1; ?>],['Instructor',<?php echo $d2; ?>],['Trainee',<?php echo $d3; ?>]
+        ]
+
+    }]
+});
+
+<?php 
+        $jan = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '01' and date_donated = YEAR(CURRENT_DATE())");
+        $d1 = mysqli_num_rows($jan);
+
+        $feb = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '02' and date_donated = YEAR(CURRENT_DATE())");
+        $d2 = mysqli_num_rows($feb);
+
+        $mar = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '03' and date_donated = YEAR(CURRENT_DATE())");
+        $d3 = mysqli_num_rows($mar);
+
+        $apr = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '04' and date_donated = YEAR(CURRENT_DATE())");
+        $d4 = mysqli_num_rows($apr);
+
+        $may = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '05' and date_donated = YEAR(CURRENT_DATE())");
+        $d5 = mysqli_num_rows($may);
+
+        $jun = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '06' and date_donated = YEAR(CURRENT_DATE())");
+        $d6 = mysqli_num_rows($jun);
+
+        $jul = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '07' and date_donated = YEAR(CURRENT_DATE())");
+        $d7 = mysqli_num_rows($jul);
+
+        $aug = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '08' and date_donated = YEAR(CURRENT_DATE())");
+        $d8 = mysqli_num_rows($aug);
+
+        $sep = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '09' and date_donated = YEAR(CURRENT_DATE())");
+        $d9 = mysqli_num_rows($sep);
+
+        $oct = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '10' and date_donated = YEAR(CURRENT_DATE())");
+        $d10 = mysqli_num_rows($oct);
+
+        $nov = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '11' and date_donated = YEAR(CURRENT_DATE())");
+        $d11 = mysqli_num_rows($nov);
+
+        $dec = mysqli_query($con, "SELECT * from tblblooddonation where MONTH(date_donated) = '12' and date_donated = YEAR(CURRENT_DATE())");
+        $d12 = mysqli_num_rows($dec);
+    ?>
+Highcharts.chart('blood-population', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Donors Population'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Number of Donors per Month'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:1f}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Population for  <?php echo date('Y');?>',
+        data: [['January',<?php echo $d1; ?>],['February',<?php echo $d2; ?>],['March',<?php echo $d3; ?>],['April',<?php echo $d4; ?>],['May',<?php echo $d5; ?>],['June',<?php echo $d6; ?>],['July',<?php echo $d7; ?>],['August',<?php echo $d8; ?>],['September',<?php echo $d9; ?>],['October',<?php echo $d10; ?>],['November',<?php echo $d11; ?>],['December',<?php echo $d12; ?>]
+        ]
+
+    }]
+});
+
+
+<?php 
+        $jan = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '01' and effectivity = YEAR(CURRENT_DATE())");
+        $d1 = mysqli_num_rows($jan);
+
+        $feb = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '02' and effectivity = YEAR(CURRENT_DATE())");
+        $d2 = mysqli_num_rows($feb);
+
+        $mar = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '03' and effectivity = YEAR(CURRENT_DATE())");
+        $d3 = mysqli_num_rows($mar);
+
+        $apr = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '04' and effectivity = YEAR(CURRENT_DATE())");
+        $d4 = mysqli_num_rows($apr);
+
+        $may = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '05' and effectivity = YEAR(CURRENT_DATE())");
+        $d5 = mysqli_num_rows($may);
+
+        $jun = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '06' and effectivity = YEAR(CURRENT_DATE())");
+        $d6 = mysqli_num_rows($jun);
+
+        $jul = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '07' and effectivity = YEAR(CURRENT_DATE())");
+        $d7 = mysqli_num_rows($jul);
+
+        $aug = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '08' and effectivity = YEAR(CURRENT_DATE())");
+        $d8 = mysqli_num_rows($aug);
+
+        $sep = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '09' and effectivity = YEAR(CURRENT_DATE())");
+        $d9 = mysqli_num_rows($sep);
+
+        $oct = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '10' and effectivity = YEAR(CURRENT_DATE())");
+        $d10 = mysqli_num_rows($oct);
+
+        $nov = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '11' and effectivity = YEAR(CURRENT_DATE())");
+        $d11 = mysqli_num_rows($nov);
+
+        $dec = mysqli_query($con, "SELECT * from tblmaab where MONTH(effectivity) = '12' and effectivity = YEAR(CURRENT_DATE())");
+        $d12 = mysqli_num_rows($dec);
+    ?>
+
+Highcharts.chart('Maab-Availments', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Availments'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Number of Availments per Month'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:1f}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Population for  <?php echo date('Y');?>',
+        data: [['January',<?php echo $d1; ?>],['February',<?php echo $d2; ?>],['March',<?php echo $d3; ?>],['April',<?php echo $d4; ?>],['May',<?php echo $d5; ?>],['June',<?php echo $d6; ?>],['July',<?php echo $d7; ?>],['August',<?php echo $d8; ?>],['September',<?php echo $d9; ?>],['October',<?php echo $d10; ?>],['November',<?php echo $d11; ?>],['December',<?php echo $d12; ?>]
+        ]
+
+    }]
+});
+
+<?php 
+$jan = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '01'  and start = YEAR(CURRENT_DATE())");
+$d1 = mysqli_num_rows($jan);
+
+$feb = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '02' and start = YEAR(CURRENT_DATE())");
+$d2 = mysqli_num_rows($feb);
+
+$mar = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '03' and start = YEAR(CURRENT_DATE())");
+$d3 = mysqli_num_rows($mar);
+
+$apr = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '04' and start = YEAR(CURRENT_DATE())");
+$d4 = mysqli_num_rows($apr);
+
+$may = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '05' and start = YEAR(CURRENT_DATE())");
+$d5 = mysqli_num_rows($may);
+
+$jun = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '06' and start = YEAR(CURRENT_DATE())");
+$d6 = mysqli_num_rows($jun);
+
+$jul = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '07' and start = YEAR(CURRENT_DATE())");
+$d7 = mysqli_num_rows($jul);
+
+$aug = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '08' and start = YEAR(CURRENT_DATE())");
+$d8 = mysqli_num_rows($aug);
+
+$sep = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '09' and start = YEAR(CURRENT_DATE())");
+$d9 = mysqli_num_rows($sep);
+
+$oct = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '10' and start = YEAR(CURRENT_DATE())");
+$d10 = mysqli_num_rows($oct);
+
+$nov = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '11' and start = YEAR(CURRENT_DATE())");
+$d11 = mysqli_num_rows($nov);
+
+$dec = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '12' and start = YEAR(CURRENT_DATE())");
+$d12 = mysqli_num_rows($dec);
+
+/**/
+
+$past1 = Date('Y', -2);
+
+$jan = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '01'  and start = YEAR(-1)");
+$b1 = mysqli_num_rows($jan);
+
+$feb = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '02' and start = '".$past1."'");
+$b2 = mysqli_num_rows($feb);
+
+$mar = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '03' and start = '".$past1."'");
+$b3 = mysqli_num_rows($mar);
+
+$apr = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '04' and start = '".$past1."'");
+$b4 = mysqli_num_rows($apr);
+
+$may = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '05' and start = '".$past1."'");
+$b5 = mysqli_num_rows($may);
+
+$jun = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '06' and start = '".$past1."'");
+$b6 = mysqli_num_rows($jun);
+
+$jul = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '07' and start = '".$past1."'");
+$b7 = mysqli_num_rows($jul);
+
+$aug = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '08' and start = '".$past1."'");
+$b8 = mysqli_num_rows($aug);
+
+$sep = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '09' and start = '".$past1."'");
+$b9 = mysqli_num_rows($sep);
+
+$oct = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '10' and start = '".$past1."'");
+$b10 = mysqli_num_rows($oct);
+
+$nov = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '11' and start = '".$past1."'");
+$b11 = mysqli_num_rows($nov);
+
+$dec = mysqli_query($con, "SELECT * from tblevents where MONTH(start) = '12' and start = '".$past1."'");
+$b12 = mysqli_num_rows($dec);
+?>
+Highcharts.chart('trainings-conducted', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Trainings Conducted'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Trainings Conducted per Month'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:1f}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: '<?php echo date('Y');?>',
+        data: [['January',<?php echo $d1; ?>],['February',<?php echo $d2; ?>],['March',<?php echo $d3; ?>],['April',<?php echo $d4; ?>],['May',<?php echo $d5; ?>],['June',<?php echo $d6; ?>],['July',<?php echo $d7; ?>],['August',<?php echo $d8; ?>],['September',<?php echo $d9; ?>],['October',<?php echo $d10; ?>],['November',<?php echo $d11; ?>],['December',<?php echo $d12; ?>]
+        ]
+
+    },
+    {
+        name: '<?php echo date('Y')-1;?>',
+        data: [['January',<?php echo $b1; ?>],['February',<?php echo $b2; ?>],['March',<?php echo $b3; ?>],['April',<?php echo $b4; ?>],['May',<?php echo $b5; ?>],['June',<?php echo $b6; ?>],['July',<?php echo $b7; ?>],['August',<?php echo $b8; ?>],['September',<?php echo $b9; ?>],['October',<?php echo $b10; ?>],['November',<?php echo $b11; ?>],['December',<?php echo $b12; ?>]
+        ]
+
+    },
+    {
+        name: '<?php echo date('Y')-2;?>',
+        data: [['January',<?php echo $d1; ?>],['February',<?php echo $d2; ?>],['March',<?php echo $d3; ?>],['April',<?php echo $d4; ?>],['May',<?php echo $d5; ?>],['June',<?php echo $d6; ?>],['July',<?php echo $d7; ?>],['August',<?php echo $d8; ?>],['September',<?php echo $d9; ?>],['October',<?php echo $d10; ?>],['November',<?php echo $d11; ?>],['December',<?php echo $d12; ?>]
+        ]
+
+    }
+    ]
+});
+
+
+    </script>
 </body>
 </html>

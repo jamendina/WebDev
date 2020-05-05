@@ -15,12 +15,10 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- FlotJS -->
-<script src="plugins/flot/jquery.flot.js"></script>
-<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-<script src="plugins/flot-old/jquery.flot.resize.min.js"></script>
-<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-<script src="plugins/flot-old/jquery.flot.pie.min.js"></script>
+<!-- Highcharts v8.0 -->
+<script src="plugins/Highcharts/code/highcharts.js"></script>
+<script src="plugins/Highcharts/code/modules/exporting.js"></script>
+<script src="plugins/Highcharts/code/modules/export-data.js"></script>
 
 <!-- Sparkline -->
 <script src="plugins/sparklines/sparkline.js"></script>
