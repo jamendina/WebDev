@@ -26,17 +26,15 @@
                     $npresent = $present + 3;
                     $presents = $npresent;
 
-                    $upcoming = "SELECT * from tblevents where day(start) BETWEEN day(CURRENT_DATE()) and '".$presents."' and stat_id ='1'";
+                    $upcoming = "SELECT * from tblevents where year(start) BETWEEN day(CURRENT_DATE()) and '".$presents."' and stat_id ='1'";
                     $query1 = mysqli_query($con, $upcoming);
                     $upcomingtotal= mysqli_num_rows($query1);
-
-
-
+                    
                     $training = "SELECT * FROM tblevents WHERE day(start) >= day(CURRENT_DATE()) and stat_id ='1' and te_id  NOT IN (SELECT tblevents.te_id from tblevents JOIN tblassignment USING(te_id))";
                     $query2 = mysqli_query($con, $training);
                     $trainingtotal= mysqli_num_rows($query2);
 
-                    $standby = "SELECT * from tblevents where month(start) = month(CURRENT_DATE()) and stat_id ='0'";
+                    $standby = "SELECT * from tblevents where YEAR(start) = YEAR(CURRENT_DATE()) and MONTH(start) = MONTH(CURRENT_DATE()) and stat_id='5'";
                     $query3 = mysqli_query($con, $standby);
                     $standbytotal= mysqli_num_rows($query3);
 
