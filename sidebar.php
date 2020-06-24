@@ -52,56 +52,55 @@ ob_start();
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="dashboard.html" class="nav-link active">
+            <a '; if ($page == "dashboard.html.php"){echo 'class="nav-link active"';}echo'  href="dashboard.html">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
+              <span>
                 Dashboard
-              </p>
+              </span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="calendar.html" class="nav-link">
+            <a '; if ($page == "calendar.html.php"){echo 'class="nav-link active"';}echo' href="calendar.html">
               <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
+              <span>
                 Calendar
-                <!--<span class="badge badge-info right">2</span>-->
-              </p>
+              </span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="account.html" class="nav-link">
+            <a href="account.html" '; if ($page == "account.html.php"){echo 'class="nav-link active"';}echo'>
               <i class="nav-icon fas fa-users"></i>
-              <p>
+              <span>
                 Account Management
                 <!--<span class="right badge badge-danger">New</span>-->
-              </p>
+              </span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="trainings.html" class="nav-link">
+            <a href="trainings.html" '; if ($page == "trainings.html.php"){echo 'class="nav-link active"';}echo'>
               <i class="nav-icon fas fa-bars"></i>
-              <p>
+              <span>
                 Events/Trainings
                 <!--<span class="right badge badge-danger">New</span>-->
-              </p>
+              </span>
             </a>
           </li>
            <li class="nav-item">
-            <a href="extra.html" class="nav-link">
+            <a href="extra.html" '; if ($page == "extra.html.php"){echo 'class="nav-link active"';}echo'>
               <i class="nav-icon far fa-plus-square alt"></i>
-              <p>
+              <span>
                 Extra
                 <!--<span class="right badge badge-danger">New</span>-->
-              </p>
+              </span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="reports.html" class="nav-link">
+            <a href="reports.html" '; if ($page == "reports.html.php"){echo 'class="nav-link active"';}echo'>
               <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
+              <span>
                 Reports
                 <!--<span class="right badge badge-danger">New</span>-->
-              </p>
+              </span>
             </a>
           </li>
          
